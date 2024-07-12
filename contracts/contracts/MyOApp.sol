@@ -13,7 +13,17 @@ import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { IPool } from "@aave/core-v3/contracts/interfaces/IPool.sol";
 
 contract MyOApp is OApp {
-    constructor(address _endpoint, address _delegate) OApp(_endpoint, _delegate) Ownable(_delegate) {}
+    IStargate immutable stargate;
+    IPool immutable aavePool;
+    constructor(
+        address _endpoint,
+        address _delegate,
+        address _stargate,
+        address _aavePool
+    ) OApp(_endpoint, _delegate) Ownable(_delegate) {
+        stargate = IStargate(_stargate);
+        aavePool = IPool(_aavePool);
+    }
 
     string public data = "Nothing received yet.";
 
@@ -74,10 +84,6 @@ contract MyOApp is OApp {
         data = abi.decode(payload, (string));
     }
 
-    address constant stargateNativePool = 0xA7D7079b0FEaD91F3e65f86E8915Cb59c1a4C664; // TO BE CORRECTED
-    IStargate stargate = IStargate(address(stargateNativePool));
-    IPool aavePool = IPool(address(0x0)); // TO BE CORRECTED
-
     function prepareTakeTaxi(
         address _stargate,
         uint32 _dstEid,
@@ -133,17 +139,7 @@ contract MyOApp is OApp {
         uint256 amountLD = OFTComposeMsgCodec.amountLD(_message);
         bytes memory _composeMessage = OFTComposeMsgCodec.composeMsg(_message);
 
-        (
-            address _tokenReceiver,
-            address _oftOnDestination,
-            address _tokenOut,
-            uint _amountOutMinDest,
-            uint _deadline
-        ) = abi.decode(_composeMessage, (address, address, address, uint, uint));
-
-        address[] memory path = new address[](2);
-        path[0] = _oftOnDestination;
-        path[1] = _tokenOut;
+        (address _tokenReceiver, address _oftOnDestination) = abi.decode(_composeMessage, (address, address));
 
         IERC20(_oftOnDestination).approve(address(aavePool), amountLD);
 

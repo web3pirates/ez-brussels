@@ -5,15 +5,26 @@ import { type DeployFunction } from 'hardhat-deploy/types'
 // TODO declare your contract name here
 const contractName = 'MyOApp'
 
+const addresses: Record<number, { stargate: string; aave: string }> = {
+    11155111: {
+        stargate: '0x0',
+        aave: '0x0',
+    },
+    84532: {
+        stargate: '0x0',
+        aave: '0x0',
+    },
+}
+
 const deploy: DeployFunction = async (hre) => {
-    const { getNamedAccounts, deployments } = hre
+    const { getNamedAccounts, deployments, network } = hre
 
     const { deploy } = deployments
     const { deployer } = await getNamedAccounts()
 
     assert(deployer, 'Missing named deployer account')
 
-    console.log(`Network: ${hre.network.name}`)
+    console.log(`Network: ${network.name}`)
     console.log(`Deployer: ${deployer}`)
 
     // This is an external deployment pulled in from @layerzerolabs/lz-evm-sdk-v2
@@ -39,6 +50,7 @@ const deploy: DeployFunction = async (hre) => {
         args: [
             endpointV2Deployment.address, // LayerZero's EndpointV2 address
             deployer, // owner
+            addresses[network.config.chainId || 1].stargate,
         ],
         log: true,
         skipIfAlreadyDeployed: false,
