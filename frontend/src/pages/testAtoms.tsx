@@ -1,5 +1,5 @@
-import { Footer } from '@/components/Footer';
-import { Nav } from '@/components/Nav';
+import { Footer } from "@/components/Footer";
+import { Nav } from "@/components/Nav";
 import {
   CustomContainer,
   Label,
@@ -19,13 +19,11 @@ import {
   TextArea,
   Select,
   Loader,
-} from '@/components/atoms';
-import { useIsMounted } from '@/hooks/useIsMounted';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+} from "@/components/atoms";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 export default function testAtoms() {
-  const isMounted = useIsMounted(); // Prevent Next.js hydration errors
   const router = useRouter();
 
   return (
