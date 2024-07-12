@@ -2,7 +2,6 @@ import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 import { OpportunityComponent } from "@/components/OpportunityComponent";
 import { CustomContainer, Layout } from "@/components/atoms";
-import "@uniswap/widgets/fonts.css";
 import Head from "next/head";
 import { useState } from "react";
 
