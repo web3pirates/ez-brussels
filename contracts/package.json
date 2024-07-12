@@ -73,6 +73,7 @@
     "hardhat-deploy": "^0.12.1"
   },
   "dependencies": {
-    "@aave/core-v3": "^1.19.3"
+    "@aave/core-v3": "^1.19.3",
+    "@nomicfoundation/hardhat-verify": "^2.0.8"
   }
 }

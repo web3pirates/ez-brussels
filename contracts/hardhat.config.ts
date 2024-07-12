@@ -7,26 +7,17 @@ import 'dotenv/config'
 
 import 'hardhat-deploy'
 import 'hardhat-contract-sizer'
+import '@nomicfoundation/hardhat-verify'
 import '@nomiclabs/hardhat-ethers'
 import '@layerzerolabs/toolbox-hardhat'
 import { HardhatUserConfig, HttpNetworkAccountsUserConfig } from 'hardhat/types'
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-// Set your preferred authentication method
-//
-// If you prefer using a mnemonic, set a MNEMONIC environment variable
-// to a valid mnemonic
-const MNEMONIC = process.env.MNEMONIC
-
 // If you prefer to be authenticated using a private key, set a PRIVATE_KEY environment variable
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 
-const accounts: HttpNetworkAccountsUserConfig | undefined = MNEMONIC
-    ? { mnemonic: MNEMONIC }
-    : PRIVATE_KEY
-      ? [PRIVATE_KEY]
-      : undefined
+const accounts: HttpNetworkAccountsUserConfig | undefined = PRIVATE_KEY ? [PRIVATE_KEY] : undefined
 
 if (accounts == null) {
     console.warn(
@@ -57,10 +48,16 @@ const config: HardhatUserConfig = {
             url: process.env.RPC_URL_SEPOLIA || 'https://rpc.sepolia.org/',
             accounts,
         },
-        fuji: {
-            eid: EndpointId.BASESEP_V2_TESTNET,
-            url: process.env.RPC_URL_BASESEP || 'https://sepolia.base.org/',
+        arbitrum_sepolia: {
+            eid: EndpointId.ARBSEP_V2_TESTNET,
+            url: process.env.RPC_URL_BASESEP || 'https://sepolia-rollup.arbitrum.io/rpc',
             accounts,
+        },
+    },
+    etherscan: {
+        apiKey: {
+            arbitrumSepolia: process.env.ARBISCAN_API_KEY!,
+            sepolia: process.env.ETHERSCAN_API_KEY!,
         },
     },
     namedAccounts: {

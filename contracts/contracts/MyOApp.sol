@@ -13,15 +13,8 @@ import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { IPool } from "@aave/core-v3/contracts/interfaces/IPool.sol";
 
 contract MyOApp is OApp {
-    IStargate immutable stargate;
     IPool immutable aavePool;
-    constructor(
-        address _endpoint,
-        address _delegate,
-        address _stargate,
-        address _aavePool
-    ) OApp(_endpoint, _delegate) Ownable(_delegate) {
-        stargate = IStargate(_stargate);
+    constructor(address _endpoint, address _delegate, address _aavePool) OApp(_endpoint, _delegate) Ownable(_delegate) {
         aavePool = IPool(_aavePool);
     }
 
@@ -91,6 +84,7 @@ contract MyOApp is OApp {
         address _receiver,
         bytes memory _composeMsg
     ) external view returns (uint256 valueToSend, SendParam memory sendParam, MessagingFee memory messagingFee) {
+        IStargate stargate = IStargate(_stargate);
         bytes memory extraOptions = _composeMsg.length > 0
             ? OptionsBuilder.addExecutorLzComposeOption(OptionsBuilder.newOptions(), 0, 200_000, 0) // compose gas limit
             : bytes("");
@@ -117,12 +111,13 @@ contract MyOApp is OApp {
     }
 
     function bridge(
+        address _stargate,
         SendParam memory sendParam,
         MessagingFee memory messagingFee
     ) public payable returns (MessagingReceipt memory msgReceipt) {
         //MessagingFee memory fee;
-
-        (msgReceipt, , ) = stargate.sendToken(sendParam, messagingFee, msg.sender);
+        IStargate stargate = IStargate(_stargate);
+        (msgReceipt, ) = stargate.send(sendParam, messagingFee, msg.sender);
         //fee = msgReceipt.fee;
     }
 

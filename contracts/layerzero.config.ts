@@ -7,15 +7,15 @@ const sepoliaContract: OmniPointHardhat = {
     contractName: 'MyOApp',
 }
 
-const baseSepoliaContract: OmniPointHardhat = {
-    eid: EndpointId.BASESEP_V2_TESTNET,
+const arbSepoliaContract: OmniPointHardhat = {
+    eid: EndpointId.ARBSEP_V2_TESTNET,
     contractName: 'MyOApp',
 }
 
 const config: OAppOmniGraphHardhat = {
     contracts: [
         {
-            contract: baseSepoliaContract,
+            contract: arbSepoliaContract,
         },
         {
             contract: sepoliaContract,
@@ -23,25 +23,30 @@ const config: OAppOmniGraphHardhat = {
     ],
     connections: [
         {
-            from: baseSepoliaContract,
+            from: arbSepoliaContract,
             to: sepoliaContract,
             config: {
+                sendLibrary: '0x4f7cd4DA19ABB31b0eC98b9066B9e857B1bf9C0E',
+                receiveLibraryConfig: {
+                    receiveLibrary: '0x75Db67CDab2824970131D5aa9CECfC9F69c69636',
+                    gracePeriod: BigInt(0),
+                },
                 sendConfig: {
                     executorConfig: {
-                        executor: '0x8A3D588D9f6AC041476b094f97FF94ec30169d3D',
+                        executor: '0x5Df3a1cEbBD9c8BA7F8dF51Fd632A9aef8308897',
                         maxMessageSize: 10000,
                     },
                     ulnConfig: {
                         confirmations: BigInt(1),
-                        requiredDVNs: ['0xe1a12515F9AB2764b887bF60B923Ca494EBbB2d6'],
+                        requiredDVNs: ['0x53f488E93b4f1b60E8E83aa374dBe1780A1EE8a8'],
                         optionalDVNs: [],
                         optionalDVNThreshold: 0,
                     },
                 },
                 receiveConfig: {
                     ulnConfig: {
-                        confirmations: BigInt(1),
-                        requiredDVNs: ['0xe1a12515F9AB2764b887bF60B923Ca494EBbB2d6'],
+                        confirmations: BigInt(2),
+                        requiredDVNs: ['0x53f488E93b4f1b60E8E83aa374dBe1780A1EE8a8'],
                         optionalDVNs: [],
                         optionalDVNThreshold: 0,
                     },
@@ -50,7 +55,7 @@ const config: OAppOmniGraphHardhat = {
         },
         {
             from: sepoliaContract,
-            to: baseSepoliaContract,
+            to: arbSepoliaContract,
             config: {
                 sendLibrary: '0xcc1ae8Cf5D3904Cef3360A9532B477529b177cCE',
                 receiveLibraryConfig: {
@@ -63,7 +68,7 @@ const config: OAppOmniGraphHardhat = {
                         maxMessageSize: 10000,
                     },
                     ulnConfig: {
-                        confirmations: BigInt(1),
+                        confirmations: BigInt(2),
                         requiredDVNs: ['0x8eebf8b423B73bFCa51a1Db4B7354AA0bFCA9193'],
                         optionalDVNs: [],
                         optionalDVNThreshold: 0,
