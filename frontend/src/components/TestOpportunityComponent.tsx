@@ -1,5 +1,6 @@
 import { Button } from "./atoms";
-import { abi } from "@/abi/OApp";
+import { BridgeReceiverAbi } from "@/abi/BridgeReceiver";
+import { oappAbi } from "@/abi/OApp";
 import { stargateAbi } from "@/abi/Stargate";
 import { chainData } from "@/utils/chainData";
 import { wagmiConfig } from "@/wagmi";
@@ -30,13 +31,14 @@ export const OpportunityComponent = ({
     const toData = chainData[toChainId];
     const msgData = encodeAbiParameters(
       [
+        { name: "_receiver", type: "address" },
         { name: "_oftOnDestination", type: "address" },
         { name: "depositOnAave", type: "bool" },
       ],
-      [toData.USDC, true]
+      [toData.OApp, toData.USDC, true]
     );
     const [valueToSend, sendParam, messFee] = await readContract(wagmiConfig, {
-      abi: abi,
+      abi: BridgeReceiverAbi,
       address: fromData.BridgeReceiver,
       functionName: "prepareTakeTaxi",
       chainId: fromChainId,
@@ -80,6 +82,59 @@ export const OpportunityComponent = ({
     }
   }
 
+  async function transferDeposit(fromChainId: number, toChainId: number) {
+    const baseData = chainData[8453];
+    const fromData = chainData[fromChainId];
+    const toData = chainData[toChainId];
+
+    const composeMsg = encodeAbiParameters(
+      [
+        { name: "_receiver", type: "address" },
+        { name: "_oftOnDestination", type: "address" },
+        { name: "depositOnAave", type: "bool" },
+      ],
+      [toData.OApp, toData.USDC, true]
+    );
+    const payload = encodeAbiParameters(
+      [
+        { name: "stargate", type: "address" },
+        { name: "eid", type: "uint32" },
+        { name: "receiver", type: "address" },
+        { name: "aToken", type: "address" },
+        { name: "composeMsg", type: "bytes" },
+      ],
+      [
+        fromData.Stargate,
+        toData.eid,
+        toData.BridgeReceiver,
+        toData.USDC,
+        composeMsg,
+      ]
+    );
+
+    const { nativeFee, lzTokenFee } = await readContract(wagmiConfig, {
+      abi: oappAbi,
+      address: baseData.OApp,
+      functionName: "quote",
+      chainId: 8453,
+      args: [fromData.eid, payload, false],
+    });
+    console.log(nativeFee, lzTokenFee);
+
+    try {
+      await writeContract(wagmiConfig, {
+        abi: oappAbi,
+        address: baseData.OApp,
+        functionName: "send",
+        chainId: 8453,
+        value: nativeFee,
+        args: [fromData.eid, payload],
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <div>
       {imageExists ? (
@@ -96,6 +151,7 @@ export const OpportunityComponent = ({
       <Button onClick={() => externalDepositOnAave(8453, 42161, BigInt(100))}>
         Supply
       </Button>
+      <Button onClick={() => transferDeposit(42161, 8453)}>Transfer</Button>
     </div>
   );
 };

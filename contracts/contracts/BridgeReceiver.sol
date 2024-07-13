@@ -64,12 +64,17 @@ contract BridgeReceiver is ILayerZeroComposer {
         bytes memory _composeMessage = OFTComposeMsgCodec.composeMsg(_message);
         emit MessageArrived(_composeMessage);
 
-        (address _oftOnDestination, bool depositOnAave) = abi.decode(_composeMessage, (address, bool));
+        (address _receiver, address _oftOnDestination, bool depositOnAave) = abi.decode(
+            _composeMessage,
+            (address, address, bool)
+        );
 
         if (depositOnAave) {
             uint256 amountLD = IERC20(_oftOnDestination).balanceOf(address(this));
             IERC20(_oftOnDestination).approve(address(aavePool), amountLD);
-            aavePool.deposit(_oftOnDestination, amountLD, address(this), 0);
+            try aavePool.deposit(_oftOnDestination, amountLD, _receiver, 0) {} catch {
+                IERC20(_oftOnDestination).transfer(_receiver, amountLD);
+            }
         }
     }
 

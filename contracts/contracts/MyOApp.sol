@@ -22,33 +22,32 @@ contract MyOApp is OApp {
      * @notice Sends a message from the source chain to a destination chain.
      * @param _dstEid The endpoint ID of the destination chain.
      * @param _payload The message to be sent.
-     * @param _options Additional options for message execution.
      * @dev Encodes the message as bytes and sends it using the `_lzSend` internal function.
      * @return receipt A `MessagingReceipt` struct containing details of the message sent.
      */
-    function send(
-        uint32 _dstEid,
-        bytes memory _payload,
-        bytes calldata _options
-    ) external payable returns (MessagingReceipt memory receipt) {
-        receipt = _lzSend(_dstEid, _payload, _options, MessagingFee(msg.value, 0), payable(msg.sender));
+    function send(uint32 _dstEid, bytes memory _payload) external payable returns (MessagingReceipt memory receipt) {
+        bytes memory extraOptions = _payload.length > 0
+            ? OptionsBuilder.addExecutorLzComposeOption(OptionsBuilder.newOptions(), 0, 200_000, 0) // compose gas limit
+            : bytes("");
+        receipt = _lzSend(_dstEid, _payload, extraOptions, MessagingFee(msg.value, 0), payable(msg.sender));
     }
 
     /**
      * @notice Quotes the gas needed to pay for the full omnichain transaction in native gas or ZRO token.
      * @param _dstEid Destination chain's endpoint ID.
      * @param _payload The message.
-     * @param _options Message execution options (e.g., for sending gas to destination).
      * @param _payInLzToken Whether to return fee in ZRO token.
      * @return fee A `MessagingFee` struct containing the calculated gas fee in either the native token or ZRO token.
      */
     function quote(
         uint32 _dstEid,
         bytes memory _payload,
-        bytes memory _options,
         bool _payInLzToken
     ) public view returns (MessagingFee memory fee) {
-        fee = _quote(_dstEid, _payload, _options, _payInLzToken);
+        bytes memory extraOptions = _payload.length > 0
+            ? OptionsBuilder.addExecutorLzComposeOption(OptionsBuilder.newOptions(), 0, 200_000, 0) // compose gas limit
+            : bytes("");
+        fee = _quote(_dstEid, _payload, extraOptions, _payInLzToken);
     }
 
     /**
@@ -64,17 +63,16 @@ contract MyOApp is OApp {
      * Decodes the received payload, withdraws aTokens and transfers them to the receiver.
      */
     function _lzReceive(
-        Origin calldata _origin,
+        Origin calldata /*_origin*/,
         bytes32 /*_guid*/,
         bytes calldata payload,
         address /*_executor*/,
         bytes calldata /*_extraData*/
     ) internal override {
-        (address stargate, address receiver, address aToken, bytes memory composeMsg) = abi.decode(
+        (address stargate, uint32 eid, address receiver, address aToken, bytes memory composeMsg) = abi.decode(
             payload,
-            (address, address, address, bytes)
+            (address, uint32, address, address, bytes)
         );
-        uint32 eid = _origin.srcEid;
         IERC20 aTokenContract = IERC20(aToken);
         uint256 aAmount = aTokenContract.balanceOf(address(this));
         aTokenContract.approve(address(aavePool), aAmount);

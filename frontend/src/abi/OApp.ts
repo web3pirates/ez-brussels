@@ -1,4 +1,4 @@
-export const abi = [
+export const oappAbi = [
   {
     inputs: [
       {
@@ -354,19 +354,6 @@ export const abi = [
   },
   {
     inputs: [],
-    name: "data",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
     name: "endpoint",
     outputs: [
       {
@@ -422,45 +409,6 @@ export const abi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint32",
-        name: "_from",
-        type: "uint32",
-      },
-      {
-        internalType: "bytes32",
-        name: "_guid",
-        type: "bytes32",
-      },
-      {
-        internalType: "bytes",
-        name: "_message",
-        type: "bytes",
-      },
-      {
-        internalType: "address",
-        name: "_executor",
-        type: "address",
-      },
-      {
-        internalType: "bytes",
-        name: "_extraData",
-        type: "bytes",
-      },
-    ],
-    name: "lzCompose",
-    outputs: [
-      {
-        internalType: "bytes",
-        name: "",
-        type: "bytes",
-      },
-    ],
-    stateMutability: "payable",
     type: "function",
   },
   {
@@ -693,13 +641,8 @@ export const abi = [
         type: "uint32",
       },
       {
-        internalType: "string",
-        name: "_message",
-        type: "string",
-      },
-      {
         internalType: "bytes",
-        name: "_options",
+        name: "_payload",
         type: "bytes",
       },
       {
@@ -746,13 +689,8 @@ export const abi = [
         type: "uint32",
       },
       {
-        internalType: "string",
-        name: "_message",
-        type: "string",
-      },
-      {
         internalType: "bytes",
-        name: "_options",
+        name: "_payload",
         type: "bytes",
       },
     ],

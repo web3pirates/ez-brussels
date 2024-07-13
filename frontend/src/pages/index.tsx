@@ -1,6 +1,7 @@
 import AaveDataComponent from "@/components/AaveDataComponent";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
+import { OpportunityComponent } from "@/components/TestOpportunityComponent";
 import { CustomContainer, Layout } from "@/components/atoms";
 import fetch from "cross-fetch";
 import Head from "next/head";
@@ -263,6 +264,7 @@ export default function Home() {
         <CustomContainer as="main">
           <div className="w-full">
             <div className="grid grid-cols-12 gap-4">
+              <OpportunityComponent opportunity={{ chain: "8453" }} />
               <div className="w-full col-span-6">
                 <div className="mb-8">
                   <div className="flex flex-col gap-8 px-2 pt-5 pb-2">

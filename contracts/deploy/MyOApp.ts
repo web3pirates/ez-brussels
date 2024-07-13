@@ -36,18 +36,18 @@ const deploy: DeployFunction = async (hre) => {
     // }
     const endpointV2Deployment = await hre.deployments.get('EndpointV2')
 
-    const tx1 = await deploy('MyOApp', {
-        from: deployer,
-        args: [
-            endpointV2Deployment.address, // LayerZero's EndpointV2 address
-            deployer, // owner
-            aaveAddresses[network.name],
-        ],
-        log: true,
-        skipIfAlreadyDeployed: false,
-    })
+    // const tx1 = await deploy('MyOApp', {
+    //     from: deployer,
+    //     args: [
+    //         endpointV2Deployment.address, // LayerZero's EndpointV2 address
+    //         deployer, // owner
+    //         aaveAddresses[network.name],
+    //     ],
+    //     log: true,
+    //     skipIfAlreadyDeployed: false,
+    // })
 
-    console.log(`Deployed contract: MyOapp, network: ${hre.network.name}, address: ${tx1.address}`)
+    // console.log(`Deployed contract: MyOapp, network: ${hre.network.name}, address: ${tx1.address}`)
 
     const tx2 = await deploy('BridgeReceiver', {
         from: deployer,
