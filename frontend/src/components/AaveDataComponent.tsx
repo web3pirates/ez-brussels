@@ -6,13 +6,19 @@ import React from 'react';
 
 interface AaveDataComponentProps {
   symbol: string;
+  amount: bigint;
 }
 
 export const supplyFundsButtonStyle =
-  'inline-block text-gray-900 bg-gradient-to-r from-cyan-200 to-blue-200 border border-black hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 rounded-lg text-sm min-w-20 py-2.5 font-bold text-center no-underline cursor-pointer transition-colors duration-300 ease-in-out whitespace-nowrap';
+  'inline-block text-gray-900 bg-gradient-to-r p-2 from-cyan-200 to-blue-200 border border-black hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 rounded-lg text-sm min-w-20 py-2.5 font-bold text-center no-underline cursor-pointer transition-colors duration-300 ease-in-out whitespace-nowrap';
 
-const AaveDataComponent: React.FC<AaveDataComponentProps> = ({ symbol }) => {
+export const noFundsButtonStyle =
+  'inline-block text-gray bg-gradient-to-r p-2 from-gray-100 to-gray-200 border border-black hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 rounded-lg text-sm min-w-20 py-2.5 font-bold text-center no-underline cursor-not-allowed transition-colors duration-300 ease-in-out whitespace-nowrap';
+
+const AaveDataComponent: React.FC<AaveDataComponentProps> = ({ symbol, amount }) => {
   const { reserves, error } = useAaveData(symbol);
+
+  const isEnabled = amount > 0;
 
   if (error) {
     return <div>{error}</div>;
@@ -55,9 +61,13 @@ const AaveDataComponent: React.FC<AaveDataComponentProps> = ({ symbol }) => {
                   console.log('Supply funds');
                 }}
                 type="button"
-                className={supplyFundsButtonStyle}
+                className={isEnabled ? supplyFundsButtonStyle : noFundsButtonStyle}
+                disabled={!isEnabled}
               >
-                <div className="p-1 text-center">Supply</div>
+                <div className="flex">
+                  <div className="p-1 text-center text-md">{isEnabled ? 'Supply' : 'No funds'}</div>
+                  <div className="text-center text-lg">{isEnabled ? '💰' : '😭'}</div>
+                </div>
               </button>
             </div>{' '}
           </div>

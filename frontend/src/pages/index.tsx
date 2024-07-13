@@ -188,6 +188,19 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+              {showList && (
+                <div className="w-full col-span-6">
+                  <p className="flex justify-center w-full gap-2 pt-4 font-extrabold text-2xl md:text-3xl mb-4"></p>
+                  <p className="text-lg p-2 font-semibold">
+                    Opportunities for {tokens[selectedToken].name}
+                  </p>
+
+                  <AaveDataComponent
+                    symbol={tokens[selectedToken].name}
+                    amount={tokens[selectedToken].amount}
+                  />
+                </div>
+              )}
               {!showList && (
                 <div className="w-full col-span-6">
                   <p className="flex justify-center w-full gap-2 pt-4 mt-1 font-extrabold text-2xl md:text-3xl mb-4"></p>
@@ -210,16 +223,6 @@ export default function Home() {
                       on your assets across different chains.
                     </p>
                   </div>
-                </div>
-              )}
-              {showList && (
-                <div className="w-full col-span-6">
-                  <p className="flex justify-center w-full gap-2 pt-4 font-extrabold text-2xl md:text-3xl mb-4"></p>
-                  <p className="text-lg p-2 font-semibold">
-                    Opportunities for {tokens[selectedToken].name}
-                  </p>
-
-                  <AaveDataComponent symbol={tokens[selectedToken].name} />
                 </div>
               )}
             </div>
