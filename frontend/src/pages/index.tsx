@@ -1,6 +1,6 @@
+import AaveDataComponent from '@/components/AaveDataComponent';
 import { Footer } from '@/components/Footer';
 import { Nav } from '@/components/Nav';
-import { OpportunityComponent } from '@/components/OpportunityComponent';
 import { CustomContainer, Layout } from '@/components/atoms';
 import Head from 'next/head';
 import { useState } from 'react';
@@ -32,25 +32,6 @@ export default function Home() {
 
                   <div className="w-full">
                     {tokens.map((token, index) => (
-                      // <li
-                      //   key={index}
-                      //   className="flex items-center justify-between p-2 border-b border-gray-200"
-                      // >
-                      //   <p className="text-md mt-4 font-semibold">
-                      //     {token.name} ({token.amount})
-                      //   </p>
-
-                      //   <button
-                      //     onClick={() => {
-                      //       setShowList(true);
-                      //       setSelectedToken(index);
-                      //     }}
-                      //     type="button"
-                      //     className={supplyFundsButtonStyle}
-                      //   >
-                      //     {'Select ->'}
-                      //   </button>
-                      // </li>
                       <div
                         key={index}
                         className={`flex flex-col md:flex-row justify-between items-start md:items-center w-full p-4 pl-6 md:pl-4 rounded-lg shadow-md border border-gray-200 mb-3
@@ -83,34 +64,7 @@ export default function Home() {
                     Opportunities for {tokens[selectedToken].name}
                   </p>
 
-                  <div className="mb-8">
-                    {opportunities[selectedToken]
-                      .sort((a, b) => b.apy - a.apy)
-                      .map((opportunity, index) => (
-                        <div
-                          key={index}
-                          className={`flex flex-col md:flex-row justify-between items-start md:items-center w-full p-4 pl-6 md:pl-4 rounded-lg shadow-md border border-gray-200 mb-3
-                          bg-white`}
-                        >
-                          <div className="flex gap-5 mb-4 md:mb-0 items-start">
-                            <OpportunityComponent opportunity={opportunity} />
-                            <p className="text-md mt-3 font-semibold">{opportunity.name}</p>
-                          </div>
-                          <div className="flex gap-5 items-start md:items-center">
-                            <p className="text-sm font-semibold">APY: {opportunity.apy}%</p>
-                            <button
-                              onClick={() => {
-                                console.log('Supply funds');
-                              }}
-                              type="button"
-                              className={supplyFundsButtonStyle}
-                            >
-                              Supply
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                  </div>
+                  <AaveDataComponent symbol={tokens[selectedToken].name} />
                 </div>
               )}
             </div>
@@ -121,53 +75,6 @@ export default function Home() {
     </>
   );
 }
-
-const opportunities = [
-  [
-    {
-      name: 'Base',
-      chain: 'base',
-      apy: 2.5,
-    },
-    {
-      name: 'Optimism',
-      chain: 'optimism',
-      apy: 2.5,
-    },
-    {
-      name: 'Ethereum',
-      chain: 'eth',
-      apy: 2.5,
-    },
-    {
-      name: 'Arbitrum',
-      chain: 'arbitrum',
-      apy: 3.5,
-    },
-    {
-      name: 'Polygon',
-      chain: 'polygon',
-      apy: 4.5,
-    },
-  ],
-  [
-    {
-      name: 'Base',
-      chain: 'base',
-      apy: 2.5,
-    },
-    {
-      name: 'Optimism',
-      chain: 'optimism',
-      apy: 2.5,
-    },
-    {
-      name: 'Polygon',
-      chain: 'polygon',
-      apy: 4.5,
-    },
-  ],
-];
 
 const tokens = [
   {
