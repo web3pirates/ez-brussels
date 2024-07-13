@@ -1,5 +1,6 @@
 import useAaveData from "../hooks/useAaveData";
 import { ReserveComponent } from "./ReserveComponent";
+import ReserveHistory from "./ReserveHistory";
 import { useContract } from "@/hooks/useContract";
 import React, { useState } from "react";
 
@@ -36,6 +37,7 @@ const AaveDataComponent: React.FC<AaveDataComponentProps> = ({
 
   const [showSupplyModal, setShowSupplyModal] = useState(false);
   const [selectedLiquidityRate, setSelectedLiquidityRate] = useState<number>(0);
+  const [selectedReserveId, setSelectedReserveId] = useState<string>("");
 
   return (
     <div>
@@ -61,6 +63,7 @@ const AaveDataComponent: React.FC<AaveDataComponentProps> = ({
                 onClick={() => {
                   setShowSupplyModal(true);
                   setSelectedLiquidityRate(parseFloat(reserve.liquidityRate));
+                  setSelectedReserveId(reserve.id);
                 }}
                 type="button"
                 className={
@@ -88,6 +91,7 @@ const AaveDataComponent: React.FC<AaveDataComponentProps> = ({
           liquidityRate={selectedLiquidityRate}
           setShowModal={setShowSupplyModal}
           type={type}
+          reserveId={selectedReserveId}
         />
       )}
     </div>
@@ -100,7 +104,8 @@ const SupplyModal: React.FC<{
   liquidityRate: number;
   setShowModal: (value: boolean) => void;
   type: "Supply" | "Switch";
-}> = ({ symbol, amount, liquidityRate, setShowModal, type }) => {
+  reserveId: string;
+}> = ({ symbol, amount, liquidityRate, setShowModal, type, reserveId }) => {
   const [toBeSupplied, setToBeSupplied] = useState<string>("");
   const { externalDepositOnAave, transferDeposit } = useContract();
 
@@ -158,6 +163,10 @@ const SupplyModal: React.FC<{
               Collateralization: <span className="font-semibold">Enabled</span>
             </p>
           </div>
+          <ReserveHistory
+            reserveId={reserveId}
+            currentLiquidityRate={Number((liquidityRate * 100).toFixed(2))}
+          />
           <div className="mt-6 flex flex-row justify-between">
             <button
               className={supplyFundsButtonStyle}
