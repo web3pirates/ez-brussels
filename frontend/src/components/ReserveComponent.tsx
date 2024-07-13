@@ -2,7 +2,7 @@ import { useState } from "react";
 
 interface Reserve {
   id?: string;
-  chain: number | null;
+  chain?: number;
   chainName?: string;
   symbol?: string;
   liquidityRate?: string;
