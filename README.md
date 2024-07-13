@@ -22,12 +22,11 @@ Welcome to **EEZY**, the ultimate Web3 product designed to simplify your interac
 - Internet connection
 - Supported web browser (Chrome, Firefox, Safari, Edge)
 
-### Installation
+### How to Use
 
-1. **Sign Up**: Create an account on the EEZY platform.
-2. **Connect Wallet**: Connect your Base Smart Wallet to the EEZY platform.
-3. **Link Coinbase Account**: Link your Coinbase account for Magic Spend functionality.
-4. **Start Using EEZY**: Explore and interact with multiple blockchain networks seamlessly.
+1. **Connect Wallet**: Connect your Base Smart Wallet to the EEZY platform.
+2. **Link Coinbase Account**: Link your Coinbase account for Magic Spend functionality.
+3. **Start Using EEZY**: Explore and interact with multiple blockchain networks seamlessly.
 
 ### User Guide
 
