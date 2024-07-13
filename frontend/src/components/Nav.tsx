@@ -147,7 +147,7 @@ export const Nav: React.FC<NavProps> = ({ customFunction }) => {
                   onClick={handleViewOnExplorer}
                   className={`${dropdownButtonStyle}`}
                 >
-                  View details
+                  Manage Smart Wallet
                 </button>
               </div>
             )}
