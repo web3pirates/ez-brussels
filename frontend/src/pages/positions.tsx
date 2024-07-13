@@ -112,6 +112,13 @@ export default function Positions() {
     }
   }, [address, isConnected]);
 
+  const positions = useMemo(() => {
+    if (!arb && !base) return [];
+    if (arb && base) return [arb, base];
+    if (arb) return [arb];
+    return [base];
+  }, [arb, base]);
+
   return (
     <>
       <Head>
@@ -158,7 +165,11 @@ export default function Positions() {
                   </div>
                   <div>
                     {otherReserves.length ? (
-                      <AaveDataComponent symbol={"USDC"} amount={arb.amount} />
+                      <AaveDataComponent
+                        symbol={"USDC"}
+                        amount={arb.amount}
+                        type="Switch"
+                      />
                     ) : (
                       <></>
                     )}

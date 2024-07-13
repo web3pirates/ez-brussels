@@ -8,6 +8,7 @@ import React, { useState } from "react";
 interface AaveDataComponentProps {
   symbol: string;
   amount: number;
+  type?: "Supply" | "Switch";
 }
 
 export const supplyFundsButtonStyle =
@@ -19,6 +20,7 @@ export const noFundsButtonStyle =
 const AaveDataComponent: React.FC<AaveDataComponentProps> = ({
   symbol,
   amount,
+  type = "Supply",
 }) => {
   const { reserves, error } = useAaveData(symbol);
 
@@ -68,7 +70,7 @@ const AaveDataComponent: React.FC<AaveDataComponentProps> = ({
               >
                 <div className="flex">
                   <div className="p-1 text-center text-md">
-                    {isEnabled ? "Supply" : "No funds"}
+                    {isEnabled ? type : "No funds"}
                   </div>
                   <div className="text-center text-lg">
                     {isEnabled ? "💰" : "😭"}
@@ -85,6 +87,7 @@ const AaveDataComponent: React.FC<AaveDataComponentProps> = ({
           amount={amount}
           liquidityRate={selectedLiquidityRate}
           setShowModal={setShowSupplyModal}
+          type={type}
         />
       )}
     </div>
@@ -96,13 +99,23 @@ const SupplyModal: React.FC<{
   amount: number;
   liquidityRate: number;
   setShowModal: (value: boolean) => void;
-}> = ({ symbol, amount, liquidityRate, setShowModal }) => {
+  type: "Supply" | "Switch";
+}> = ({ symbol, amount, liquidityRate, setShowModal, type }) => {
   const [toBeSupplied, setToBeSupplied] = useState<string>("");
-  const { externalDepositOnAave } = useContract();
+  const { externalDepositOnAave, transferDeposit } = useContract();
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setToBeSupplied(e.target.value);
   };
+  const onClick =
+    type === "Supply"
+      ? () =>
+          externalDepositOnAave(
+            8453,
+            42161,
+            BigInt(Number(toBeSupplied) * 10 ** 6)
+          )
+      : () => transferDeposit(42161, 8453);
 
   return (
     <div>
@@ -113,22 +126,26 @@ const SupplyModal: React.FC<{
       <div className="fixed inset-0 flex justify-center items-center z-50">
         <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
           <h2 className="text-xl font-semibold mb-4">Supply {symbol}</h2>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-md font-bold mb-2"
-              htmlFor="amount"
-            >
-              Amount
-            </label>
-            <input
-              type="number"
-              id="toBeSupplied"
-              value={toBeSupplied}
-              onChange={handleAmountChange}
-              className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder={`balance ${amount}`}
-            />
-          </div>
+          {type === "Supply" ? (
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-md font-bold mb-2"
+                htmlFor="amount"
+              >
+                Amount
+              </label>
+              <input
+                type="number"
+                id="toBeSupplied"
+                value={toBeSupplied}
+                onChange={handleAmountChange}
+                className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder={`balance ${amount}`}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
           <div className="mb-4">
             <p className="text-gray-700">Transaction overview</p>
             <p className="text-gray-600">
@@ -148,16 +165,7 @@ const SupplyModal: React.FC<{
             >
               Cancel
             </button>
-            <button
-              className={supplyFundsButtonStyle}
-              onClick={() =>
-                externalDepositOnAave(
-                  8453,
-                  42161,
-                  BigInt(Number(toBeSupplied) * 10 ** 6)
-                )
-              }
-            >
+            <button className={supplyFundsButtonStyle} onClick={onClick}>
               Go!
             </button>
           </div>
