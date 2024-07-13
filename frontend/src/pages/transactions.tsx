@@ -15,6 +15,9 @@ export const RowElement = ({ children }: { children: any }) => (
   </div>
 );
 
+export const supplyFundsButtonStyle =
+  "inline-block text-gray-900 bg-gradient-to-r from-cyan-200 to-blue-200 border border-black hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 rounded-lg text-sm min-w-24 py-2.5 font-bold text-center no-underline cursor-pointer transition-colors duration-300 ease-in-out whitespace-nowrap";
+
 export default function Transactions() {
   const { address } = useAccount();
   const router = useRouter();
@@ -84,11 +87,19 @@ export default function Transactions() {
                       {tx.transaction_hash}
                     </a>
                     <div>{new Date(tx.timestamp).toLocaleString()}</div>
-                    <a
-                      href={`https://layerzeroscan.com/tx/${tx.transaction_hash}`}
+                    <button
+                      onClick={() => {
+                        window.open(
+                          `https://layerzeroscan.com/tx/${tx.transaction_hash}`
+                        );
+                      }}
+                      type="button"
+                      className={supplyFundsButtonStyle}
                     >
-                      See on ZeroExplorer
-                    </a>
+                      <div className="flex gap-2 p-2 items-center justify-center">
+                        See on ZeroExplorer
+                      </div>
+                    </button>
                   </RowElement>
                 ))
               : "Loading..."}
