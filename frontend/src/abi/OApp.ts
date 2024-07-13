@@ -13,11 +13,6 @@ export const abi = [
       },
       {
         internalType: "address",
-        name: "_stargate",
-        type: "address",
-      },
-      {
-        internalType: "address",
         name: "_aavePool",
         type: "address",
       },
@@ -252,6 +247,11 @@ export const abi = [
   },
   {
     inputs: [
+      {
+        internalType: "address",
+        name: "_stargate",
+        type: "address",
+      },
       {
         components: [
           {
@@ -823,6 +823,37 @@ export const abi = [
       },
     ],
     name: "setPeer",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_token",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+    ],
+    name: "testWithdraw",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+    ],
+    name: "testWithdrawNative",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

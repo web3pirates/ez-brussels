@@ -53,11 +53,23 @@ const config: HardhatUserConfig = {
             url: process.env.RPC_URL_BASESEP || 'https://sepolia-rollup.arbitrum.io/rpc',
             accounts,
         },
+        arbitrum: {
+            eid: EndpointId.ARBITRUM_V2_MAINNET,
+            url: process.env.RPC_URL_ARBITRUM || 'https://rpc.ankr.com/arbitrum	',
+            accounts,
+        },
+        base: {
+            eid: EndpointId.BASE_V2_MAINNET,
+            url: process.env.RPC_URL_BASE || 'https://mainnet.base.org',
+            accounts,
+        },
     },
     etherscan: {
         apiKey: {
             arbitrumSepolia: process.env.ARBISCAN_API_KEY!,
             sepolia: process.env.ETHERSCAN_API_KEY!,
+            arbitrumOne: process.env.ARBISCAN_API_KEY!,
+            base: process.env.BASESCAN_API_KEY!,
         },
     },
     namedAccounts: {

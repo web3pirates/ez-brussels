@@ -2,18 +2,9 @@ import assert from 'assert'
 
 import { type DeployFunction } from 'hardhat-deploy/types'
 
-// TODO declare your contract name here
-const contractName = 'MyOApp'
-
-const addresses: Record<string, { stargate: string; aave: string }> = {
-    sepolia: {
-        stargate: '0xa4e97dFd56E0E30A2542d666Ef04ACC102310083',
-        aave: '0x6Ae43d3271ff6888e7Fc43Fd7321a503ff738951',
-    },
-    arbitrum_sepolia: {
-        stargate: '0x0d7aB83370b492f2AB096c80111381674456e8d8',
-        aave: '0xBfC91D59fdAA134A4ED45f7B584cAf96D7792Eff',
-    },
+const aaveAddresses: Record<string, `0x${string}`> = {
+    arbitrum: '0x794a61358D6845594F94dc1DB02A252b5b4814aD',
+    base: '0xA238Dd80C259a72e81d7e4664a9801593F98d1c5',
 }
 
 const deploy: DeployFunction = async (hre) => {
@@ -45,21 +36,29 @@ const deploy: DeployFunction = async (hre) => {
     // }
     const endpointV2Deployment = await hre.deployments.get('EndpointV2')
 
-    const { address } = await deploy(contractName, {
+    const tx1 = await deploy('MyOApp', {
         from: deployer,
         args: [
             endpointV2Deployment.address, // LayerZero's EndpointV2 address
             deployer, // owner
-            addresses[network.name].stargate,
-            addresses[network.name].aave,
+            aaveAddresses[network.name],
         ],
         log: true,
         skipIfAlreadyDeployed: false,
     })
 
-    console.log(`Deployed contract: ${contractName}, network: ${hre.network.name}, address: ${address}`)
+    console.log(`Deployed contract: MyOapp, network: ${hre.network.name}, address: ${tx1.address}`)
+
+    const tx2 = await deploy('BridgeReceiver', {
+        from: deployer,
+        args: [aaveAddresses[network.name]],
+        log: true,
+        skipIfAlreadyDeployed: false,
+    })
+
+    console.log(`Deployed contract: BridgeReceiver, network: ${hre.network.name}, address: ${tx2.address}`)
 }
 
-deploy.tags = [contractName]
+deploy.tags = ['Oapp', 'BridgeReceiver']
 
 export default deploy
