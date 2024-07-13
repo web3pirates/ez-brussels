@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 import { NavigationMenu } from "@/components/NavigationMenu";
 import { CustomContainer, Layout } from "@/components/atoms";
+import { chainData } from "@/utils/chainData";
 import fetch from "cross-fetch";
 import Head from "next/head";
 import Image from "next/image";
@@ -15,13 +16,11 @@ const blockscoutArbUrl = `https://arbitrum.blockscout.com/api/v2/`;
 
 const baseAUSDCaddress =
   "0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB".toLowerCase();
-const baseContractAddress =
-  "0x721eD1003375e26069052E75975995743d9A3E21".toLowerCase();
+const baseContractAddress = chainData[8453].OApp.toLowerCase();
 
 const arbAUSDCaddress =
   "0x724dc807b04555b71ed48a6896b6F41593b8C637".toLowerCase();
-const arbContractAddress =
-  "0xb29e74a232A53bEcc3D80eFbec8e90d2Ee23a181".toLowerCase();
+const arbContractAddress = chainData[42161].OApp.toLowerCase();
 
 const logoBaseUrl = "https://erc20-token-logos.s3.eu-west-1.amazonaws.com/";
 
