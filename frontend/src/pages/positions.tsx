@@ -1,13 +1,16 @@
 import { RawToken } from ".";
+import AaveDataComponent from "@/components/AaveDataComponent";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 import { NavigationMenu } from "@/components/NavigationMenu";
 import { CustomContainer, Layout } from "@/components/atoms";
+import useAaveData from "@/hooks/useAaveData";
 import { chainData } from "@/utils/chainData";
 import fetch from "cross-fetch";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useMemo, useState } from "react";
 import { useAsyncMemo } from "use-async-memo";
 import { useAccount } from "wagmi";
 
@@ -26,7 +29,10 @@ const logoBaseUrl = "https://erc20-token-logos.s3.eu-west-1.amazonaws.com/";
 
 export default function Positions() {
   const { isConnected, address } = useAccount();
+  const { reserves, error } = useAaveData("USDC");
+
   const router = useRouter();
+  const [showOtherReserves, setShowOtherReserves] = useState(false);
 
   const arb = useAsyncMemo(async () => {
     if (!isConnected || !address) return;
@@ -61,6 +67,16 @@ export default function Positions() {
       console.error("Error fetching positons:", error);
     }
   }, [address, isConnected]);
+
+  const arbReserve = useMemo(
+    () => reserves.find((reserve) => reserve.chain === 42161),
+    [reserves]
+  );
+  const otherReserves = useMemo(
+    () => reserves.filter((reserve) => reserve.chain !== 42161),
+    [reserves]
+  );
+  console.log(reserves, otherReserves, arbReserve);
 
   const base = useAsyncMemo(async () => {
     if (!isConnected || !address) return;
@@ -113,20 +129,41 @@ export default function Positions() {
                 {/* <p className="text-2xl w-full">My positions</p> */}
               </div>
             </div>
-            <div className="grid grid-cols-12 gap-4 mt-4">
+            <div className="grid grid-cols-2 gap-4 mt-4">
               {arb ? (
-                <div className="col-span-12 md:col-span-6 lg:col-span-4 bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
-                  <Image
-                    src={arb.logoUrl}
-                    width={35}
-                    height={35}
-                    className="rounded-full"
-                    alt={`${arb.symbol} logo`}
-                  />
-                  <p className="text-lg font-semibold mt-2">{arb.symbol}</p>
-                  <p>Chain: {arb.chain}</p>
-                  <p>Amount: {arb.amount}</p>
-                </div>
+                <>
+                  <div className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center max-h-[8rem]">
+                    <Image
+                      src={arb.logoUrl}
+                      width={35}
+                      height={35}
+                      className="rounded-full"
+                      alt={`${arb.symbol} logo`}
+                    />
+                    <span className="text-lg font-semibold mt-2">
+                      {arb.symbol}
+                    </span>
+                    <div className="flex gap-5">
+                      <span>Chain: {arb.chain}</span>
+                      <span>Amount: {arb.amount}</span>
+                      {arbReserve ? (
+                        <span>
+                          APY:{" "}
+                          {(Number(arbReserve.liquidityRate) * 100).toFixed(2)}%
+                        </span>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    {otherReserves.length ? (
+                      <AaveDataComponent symbol={"USDC"} amount={arb.amount} />
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </>
               ) : (
                 <div className="col-span-12">No positions found</div>
               )}

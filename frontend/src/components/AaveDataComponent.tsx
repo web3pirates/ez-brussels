@@ -51,16 +51,6 @@ const AaveDataComponent: React.FC<AaveDataComponentProps> = ({
               <ReserveComponent reserve={reserve} />
               <p className="text-md mt-3 font-semibold">{reserve.chainName}</p>
             </div>
-            {/* <p>Asset: {reserve.symbol}</p> */}
-            {/* <p>ID: {reserve.id}</p>
-            <p>Liquidity Rate (APY): {(parseFloat(reserve.liquidityRate) * 100).toFixed(2)}%</p>
-            <p>
-              Variable Borrow Rate (APY):{' '}
-              {(parseFloat(reserve.variableBorrowRate) * 100).toFixed(2)}%
-            </p>
-            <p>
-              Stable Borrow Rate (APY): {(parseFloat(reserve.stableBorrowRate) * 100).toFixed(2)}%
-            </p> */}
             <div className="flex gap-5 items-start md:items-center">
               <p className="text-sm font-semibold">
                 APY: {(parseFloat(reserve.liquidityRate) * 100).toFixed(2)}%
