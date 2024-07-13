@@ -339,8 +339,8 @@ export default function Home() {
                       <span className="font-semibold">
                         manage your assets across different chains seamlessly
                       </span>{" "}
-                      from a single Base wallet without the hassle of switching
-                      chains or bridging funds.
+                      from a single Base Smart Wallet without the hassle of
+                      switching chains or bridging funds.
                     </p>
                     <p className="p-2">
                       <span className="font-semibold">EEZY</span> provides you
