@@ -59,6 +59,21 @@ export default function Transactions() {
               </>
             ))} */}
           <div className="mt-4">
+            {transactions ? (
+              <div className="mb-8">
+                <div className="flex flex-col gap-8 px-2 pt-5 pb-2">
+                  <p className="text-2xl">
+                    <div className="flex gap-2">
+                      Transactions
+                      <span className="font-bold">{transactions.length}</span>
+                    </div>
+                  </p>
+                </div>
+              </div>
+            ) : (
+              "Loading..."
+            )}
+
             {transactions
               ? transactions.map((tx: any) => (
                   <RowElement key={tx.transaction_hash}>
