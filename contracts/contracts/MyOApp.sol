@@ -13,6 +13,7 @@ import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { IPool } from "@aave/core-v3/contracts/interfaces/IPool.sol";
 
 contract MyOApp is OApp {
+    using OptionsBuilder for bytes;
     IPool immutable aavePool;
     constructor(address _endpoint, address _delegate, address _aavePool) OApp(_endpoint, _delegate) Ownable(_delegate) {
         aavePool = IPool(_aavePool);
@@ -27,7 +28,7 @@ contract MyOApp is OApp {
      */
     function send(uint32 _dstEid, bytes memory _payload) external payable returns (MessagingReceipt memory receipt) {
         bytes memory extraOptions = _payload.length > 0
-            ? OptionsBuilder.addExecutorLzComposeOption(OptionsBuilder.newOptions(), 0, 200_000, 0) // compose gas limit
+            ? OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 200_000)
             : bytes("");
         receipt = _lzSend(_dstEid, _payload, extraOptions, MessagingFee(msg.value, 0), payable(msg.sender));
     }
@@ -45,7 +46,7 @@ contract MyOApp is OApp {
         bool _payInLzToken
     ) public view returns (MessagingFee memory fee) {
         bytes memory extraOptions = _payload.length > 0
-            ? OptionsBuilder.addExecutorLzComposeOption(OptionsBuilder.newOptions(), 0, 200_000, 0) // compose gas limit
+            ? OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 200_000)
             : bytes("");
         fee = _quote(_dstEid, _payload, extraOptions, _payInLzToken);
     }
@@ -97,7 +98,7 @@ contract MyOApp is OApp {
     ) public view returns (uint256 valueToSend, SendParam memory sendParam, MessagingFee memory messagingFee) {
         IStargate stargate = IStargate(_stargate);
         bytes memory extraOptions = _composeMsg.length > 0
-            ? OptionsBuilder.addExecutorLzComposeOption(OptionsBuilder.newOptions(), 0, 200_000, 0) // compose gas limit
+            ? OptionsBuilder.newOptions().addExecutorLzComposeOption(0, 100_000, 0) // compose gas limit
             : bytes("");
 
         sendParam = SendParam({

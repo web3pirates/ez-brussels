@@ -36,27 +36,27 @@ const deploy: DeployFunction = async (hre) => {
     // }
     const endpointV2Deployment = await hre.deployments.get('EndpointV2')
 
-    // const tx1 = await deploy('MyOApp', {
-    //     from: deployer,
-    //     args: [
-    //         endpointV2Deployment.address, // LayerZero's EndpointV2 address
-    //         deployer, // owner
-    //         aaveAddresses[network.name],
-    //     ],
-    //     log: true,
-    //     skipIfAlreadyDeployed: false,
-    // })
-
-    // console.log(`Deployed contract: MyOapp, network: ${hre.network.name}, address: ${tx1.address}`)
-
-    const tx2 = await deploy('BridgeReceiver', {
+    const tx1 = await deploy('MyOApp', {
         from: deployer,
-        args: [aaveAddresses[network.name]],
+        args: [
+            endpointV2Deployment.address, // LayerZero's EndpointV2 address
+            deployer, // owner
+            aaveAddresses[network.name],
+        ],
         log: true,
         skipIfAlreadyDeployed: false,
     })
 
-    console.log(`Deployed contract: BridgeReceiver, network: ${hre.network.name}, address: ${tx2.address}`)
+    console.log(`Deployed contract: MyOapp, network: ${hre.network.name}, address: ${tx1.address}`)
+
+    // const tx2 = await deploy('BridgeReceiver', {
+    //     from: deployer,
+    //     args: [aaveAddresses[network.name]],
+    //     log: true,
+    //     skipIfAlreadyDeployed: false,
+    // })
+
+    // console.log(`Deployed contract: BridgeReceiver, network: ${hre.network.name}, address: ${tx2.address}`)
 }
 
 deploy.tags = ['Oapp', 'BridgeReceiver']
