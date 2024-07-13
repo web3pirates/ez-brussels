@@ -136,6 +136,11 @@ export default function Home() {
     ];
   }, [ethBalance, usdcBalance]);
 
+  const restartPage = () => {
+    setShowList(false);
+    setSelectedToken(-1);
+  };
+
   return (
     <>
       <Head>
@@ -144,7 +149,7 @@ export default function Home() {
       </Head>
 
       <Layout>
-        <Nav />
+        <Nav customFunction={restartPage} />
         <CustomContainer as="main">
           <div className="w-full">
             <div className="grid grid-cols-12 gap-4">
@@ -183,6 +188,30 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+              {!showList && (
+                <div className="w-full col-span-6">
+                  <p className="flex justify-center w-full gap-2 pt-4 mt-1 font-extrabold text-2xl md:text-3xl mb-4"></p>
+
+                  <div
+                    className={`mt-14 justify-between items-start md:items-center w-full p-4 pl-6 md:pl-4 rounded-lg shadow-md border border-gray-200 mb-3 bg-white`}
+                  >
+                    <p className="text-lg p-2 font-semibold">Select a token and start earning</p>
+                    <p className="p-2">
+                      <span className="font-semibold">EEZY</span> allows you to{' '}
+                      <span className="font-semibold">
+                        manage your assets across different chains seamlessly
+                      </span>{' '}
+                      from a single Base wallet without the hassle of switching chains or bridging
+                      funds.
+                    </p>
+                    <p className="p-2">
+                      <span className="font-semibold">EEZY</span> provides you with{' '}
+                      <span className="font-semibold">the best opportunities</span> to earn interest
+                      on your assets across different chains.
+                    </p>
+                  </div>
+                </div>
+              )}
               {showList && (
                 <div className="w-full col-span-6">
                   <p className="flex justify-center w-full gap-2 pt-4 font-extrabold text-2xl md:text-3xl mb-4"></p>
