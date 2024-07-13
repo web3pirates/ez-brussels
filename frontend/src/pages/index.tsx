@@ -317,7 +317,10 @@ export default function Home() {
                     Opportunities for {tokens[selectedToken].name}
                   </p>
 
-                  <AaveDataComponent symbol={tokens[selectedToken].name} />
+                  <AaveDataComponent
+                    symbol={tokens[selectedToken].name}
+                    amount={tokens[selectedToken].amount}
+                  />
                 </div>
               )}
 
