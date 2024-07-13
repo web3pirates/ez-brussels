@@ -2,16 +2,16 @@
 
 ## Overview
 
-Welcome to **EEZY**, the ultimate Web3 product designed to simplify your interaction with multiple blockchain networks. EEZY allows you to manage your assets across different chains seamlessly from a single Base wallet and spend directly from your Coinbase account with Magic Spend, all without the hassle of switching chains or bridging funds. This is made possible by leveraging the cutting-edge technology of LayerZero and Stargate.
+Welcome to **EEZY**, the ultimate Web3 product designed to simplify your interaction with multiple blockchain networks. EEZY allows you to manage your assets across different chains seamlessly from a single Base Smart Wallet and top-up directly with your Coinbase account with Magic Spend, all without the hassle of switching chains or bridging funds. This is made possible by leveraging the cutting-edge technology of LayerZero and Stargate V2 bridge.
 
 ## Features
 
-- **Multi-Chain Support**: Interact with multiple blockchain networks from a single wallet.
-- **Base Wallet**: Use one wallet to manage assets across different chains.
-- **Magic Spend**: Spend directly from your Coinbase account without needing to transfer funds.
-- **Seamless Experience**: No need to manually switch chains or bridge funds.
+-   from a single wallet.
+- **Seamless Multi-Chain Experience**: Interact with multiple newtorks with a single click.
+- **Base Smart Wallet**: Use a user-friendly wallet to manage assets across different chains.
+- **Magic Spend**: Spend directly from your Coinbase Exchange account without needing to transfer funds.
 - **LayerZero Integration**: Utilize LayerZero for secure cross-chain communication.
-- **Stargate Technology**: Leverage Stargate for reliable and efficient cross-chain transactions.
+- **Stargate Technology**: Leverage Stargate for reliable and efficient cross-chain swap transactions.
 
 ## Getting Started
 
@@ -25,30 +25,30 @@ Welcome to **EEZY**, the ultimate Web3 product designed to simplify your interac
 ### How to Use
 
 1. **Connect Wallet**: Connect your Base Smart Wallet to the EEZY platform.
-2. **Link Coinbase Account**: Link your Coinbase account for Magic Spend functionality.
+2. **Link Coinbase Account**: Link your Coinbase account to use the Magic Spend feature.
 3. **Start Using EEZY**: Explore and interact with multiple blockchain networks seamlessly.
 
 ### User Guide
 
 1. **Dashboard**: Access your EEZY dashboard to view your assets and transaction history across different chains.
 2. **Magic Spend**: Use the Magic Spend feature to make purchases directly from your Coinbase account.
-3. **Cross-Chain Transfers**: Transfer assets across different blockchain networks effortlessly using LayerZero and Stargate technology.
-4. **Manage Assets**: Keep track of your multi-chain assets from the Base wallet interface.
+3. **Cross-Chain Transfers**: Transfer assets across different blockchain networks effortlessly through LayerZero and Stargate.
+4. **Manage Assets**: Keep track of your multi-chain assets from the Base Smart Wallet interface.
 5. **Notifications**: Receive notifications for important events and transactions.
 
 ## Technical Details
 
 ### LayerZero Integration
 
-EEZY integrates with LayerZero to enable secure and efficient cross-chain communication. LayerZero provides the infrastructure to facilitate interoperability between different blockchain networks.
+EEZY integrates LayerZero to enable secure and efficient cross-chain communication. LayerZero provides the infrastructure to facilitate interoperability between different blockchain networks.
 
 ### Stargate Technology
 
-EEZY utilizes Stargate to ensure reliable and fast cross-chain transactions. Stargate acts as a bridge to seamlessly transfer assets and data between chains without the usual complexities.
+EEZY utilizes Stargate V2 to ensure reliable and fast cross-chain transactions. Stargate acts as a bridge to seamlessly transfer assets and data between chains without the usual complexities.
 
 ## Security
 
-EEZY prioritizes the security of your assets and data. By integrating with trusted technologies like LayerZero and Stargate, EEZY ensures that all cross-chain interactions are secure and efficient. Regular security audits and updates are conducted to maintain the highest standards of security.
+EEZY prioritizes the security of your assets and data. By integrating trusted technologies as LayerZero and Stargate, EEZY ensures that all cross-chain interactions are secure and efficient. Regular security audits and updates are conducted to maintain the highest standards of security.
 
 ## Support
 
