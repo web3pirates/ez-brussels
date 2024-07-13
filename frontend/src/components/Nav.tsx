@@ -113,7 +113,7 @@ export const Nav: React.FC<NavProps> = ({ customFunction }) => {
         >
           <div className="relative ml-4 gap-2 flex">
             <Image
-              src="/images/brussels.jpg"
+              src="/images/Logo.png"
               alt="EEZY"
               width={50}
               height={50}
