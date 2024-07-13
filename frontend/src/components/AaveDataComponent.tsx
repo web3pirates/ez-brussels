@@ -6,7 +6,7 @@ import React from 'react';
 
 interface AaveDataComponentProps {
   symbol: string;
-  amount: bigint;
+  amount: number;
 }
 
 export const supplyFundsButtonStyle =
