@@ -266,8 +266,9 @@ export default function Home() {
               <div className="w-full col-span-6">
                 <div className="mb-8">
                   <div className="flex flex-col gap-8 px-2 pt-5 pb-2">
-                    <p className="text-2xl font-bold">
-                      Total assets: ${totalUsd}
+                    <p className="text-2xl">
+                      Balance $
+                      <span className="font-bold">{totalUsd.toFixed(2)}</span>
                     </p>
                     <p className="text-lg font-semibold">Assets to supply</p>
                   </div>
