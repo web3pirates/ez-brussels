@@ -82,6 +82,10 @@ const tokens = [
     amount: 0.2,
   },
   {
+    name: 'WETH',
+    amount: 0.23,
+  },
+  {
     name: 'USDC',
     amount: 1000,
   },
