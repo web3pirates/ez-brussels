@@ -1,6 +1,7 @@
 import { RawToken } from ".";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
+import { NavigationMenu } from "@/components/NavigationMenu";
 import { CustomContainer, Layout } from "@/components/atoms";
 import fetch from "cross-fetch";
 import Head from "next/head";
@@ -107,9 +108,10 @@ export default function Positions() {
         <Nav customFunction={() => router.push("/")} />
         <CustomContainer as="main">
           <div className="w-full">
+            <NavigationMenu />
             <div className="grid grid-cols-12 gap-4">
               <div className="flex col-span-4">
-                <p className="text-2xl w-full">My positions</p>
+                {/* <p className="text-2xl w-full">My positions</p> */}
               </div>
             </div>
             <div className="grid grid-cols-12 gap-4 mt-4">

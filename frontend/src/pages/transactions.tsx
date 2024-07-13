@@ -1,9 +1,19 @@
 import { blockscoutBaseUrl } from ".";
 import { Nav } from "@/components/Nav";
+import { NavigationMenu } from "@/components/NavigationMenu";
 import { CustomContainer, Layout } from "@/components/atoms";
 import { useRouter } from "next/router";
 import { useAsyncMemo } from "use-async-memo";
 import { useAccount } from "wagmi";
+
+export const RowElement = ({ children }: { children: any }) => (
+  <div
+    className={`flex flex-col md:flex-row justify-between items-start md:items-center w-full p-4 pl-6 md:pl-4 rounded-lg shadow-md border border-gray-200 mb-3
+                bg-white`}
+  >
+    {children}
+  </div>
+);
 
 export default function Transactions() {
   const { address } = useAccount();
@@ -31,26 +41,43 @@ export default function Transactions() {
   return (
     <Layout>
       <Nav customFunction={() => router.push("/")} />
-      <CustomContainer
-        as="main"
-        className={`items-start w-full p-4 pl-6 md:pl-4 rounded-lg shadow-md border border-gray-200 mb-3 bg-white`}
-      >
-        <h1>Transactions</h1>
-        <div className="grid grid-cols-5 gap-x-5">
-          {transactions?.map((tx: any) => (
-            <>
-              <a
-                className="col-span-3"
-                href={`https://base.blockscout.com/tx/${tx.transaction_hash}`}
-              >
-                {tx.transaction_hash}
-              </a>
-              <div>{new Date(tx.timestamp).toLocaleString()}</div>
-              <a href={`https://layerzeroscan.com/tx/${tx.transaction_hash}`}>
-                See on ZeroExplorer
-              </a>
-            </>
-          ))}
+      <CustomContainer as="main">
+        <div className="w-full">
+          <NavigationMenu />
+          {/* {transactions?.map((tx: any) => (
+              <>
+                <a
+                  className="col-span-3"
+                  href={`https://base.blockscout.com/tx/${tx.transaction_hash}`}
+                >
+                  {tx.transaction_hash}
+                </a>
+                <div>{new Date(tx.timestamp).toLocaleString()}</div>
+                <a href={`https://layerzeroscan.com/tx/${tx.transaction_hash}`}>
+                  See on ZeroExplorer
+                </a>
+              </>
+            ))} */}
+          <div className="mt-4">
+            {transactions
+              ? transactions.map((tx: any) => (
+                  <RowElement key={tx.transaction_hash}>
+                    <a
+                      className="col-span-3"
+                      href={`https://base.blockscout.com/tx/${tx.transaction_hash}`}
+                    >
+                      {tx.transaction_hash}
+                    </a>
+                    <div>{new Date(tx.timestamp).toLocaleString()}</div>
+                    <a
+                      href={`https://layerzeroscan.com/tx/${tx.transaction_hash}`}
+                    >
+                      See on ZeroExplorer
+                    </a>
+                  </RowElement>
+                ))
+              : "Loading..."}
+          </div>
         </div>
       </CustomContainer>
     </Layout>
