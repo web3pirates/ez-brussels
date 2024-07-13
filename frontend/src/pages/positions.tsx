@@ -6,6 +6,7 @@ import { NavigationMenu } from "@/components/NavigationMenu";
 import { CustomContainer, Layout } from "@/components/atoms";
 import { supplyFundsButtonStyle } from "@/components/supplyFundsButtonStyle";
 import useAaveData from "@/hooks/useAaveData";
+import { useContract } from "@/hooks/useContract";
 import { chainData } from "@/utils/chainData";
 import fetch from "cross-fetch";
 import Head from "next/head";
@@ -78,6 +79,8 @@ export default function Positions() {
     [reserves]
   );
   console.log(reserves, otherReserves, arbReserve);
+
+  const { transferDeposit } = useContract();
 
   const base = useAsyncMemo(async () => {
     if (!isConnected || !address) return;
@@ -164,7 +167,12 @@ export default function Positions() {
                       )}
                     </div>
                     <div className="mt-3">
-                      <button className={supplyFundsButtonStyle}>
+                      <button
+                        className={supplyFundsButtonStyle}
+                        onClick={async () => {
+                          await transferDeposit(42161, 8453);
+                        }}
+                      >
                         Withdraw
                       </button>
                     </div>
