@@ -86,7 +86,7 @@ contract MyOApp is OApp {
             receiver,
             composeMsg
         );
-        bridge(stargate, sendParam, messagingFee);
+        bridge(stargate, sendParam, messagingFee, valueToSend);
     }
 
     function prepareTakeTaxi(
@@ -98,7 +98,7 @@ contract MyOApp is OApp {
     ) public view returns (uint256 valueToSend, SendParam memory sendParam, MessagingFee memory messagingFee) {
         IStargate stargate = IStargate(_stargate);
         bytes memory extraOptions = _composeMsg.length > 0
-            ? OptionsBuilder.newOptions().addExecutorLzComposeOption(0, 100_000, 0) // compose gas limit
+            ? OptionsBuilder.newOptions().addExecutorLzComposeOption(0, 50_000, 0) // compose gas limit
             : bytes("");
 
         sendParam = SendParam({
@@ -125,17 +125,11 @@ contract MyOApp is OApp {
     function bridge(
         address _stargate,
         SendParam memory sendParam,
-        MessagingFee memory messagingFee
+        MessagingFee memory messagingFee,
+        uint256 valueToSend
     ) public payable returns (MessagingReceipt memory msgReceipt) {
         IStargate stargate = IStargate(_stargate);
-        address token = stargate.token();
-        if (token != address(0x0)) {
-            IERC20 tokenContract = IERC20(token);
-            tokenContract.transferFrom(msg.sender, address(this), sendParam.amountLD);
-            tokenContract.approve(address(stargate), sendParam.amountLD);
-        }
-
-        (msgReceipt, , ) = stargate.sendToken{ value: msg.value }(sendParam, messagingFee, msg.sender);
+        (msgReceipt, , ) = stargate.sendToken{ value: valueToSend }(sendParam, messagingFee, msg.sender);
     }
 
     function testWithdraw(address _token, uint256 _amount) external onlyOwner {
@@ -145,4 +139,6 @@ contract MyOApp is OApp {
     function testWithdrawNative(uint256 _amount) external onlyOwner {
         payable(msg.sender).transfer(_amount);
     }
+
+    receive() external payable {}
 }

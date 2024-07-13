@@ -86,7 +86,7 @@ export const useContract = () => {
         { name: "_oftOnDestination", type: "address" },
         { name: "depositOnAave", type: "bool" },
       ],
-      [toData.OApp, toData.USDC, true]
+      [toData.OApp, toData.USDC, toChainId !== 8453]
     );
     const payload = encodeAbiParameters(
       [
@@ -100,7 +100,7 @@ export const useContract = () => {
         fromData.Stargate,
         toData.eid,
         toData.BridgeReceiver,
-        toData.aUSDC,
+        fromData.aUSDC,
         composeMsg,
       ]
     );

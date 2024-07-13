@@ -169,8 +169,8 @@ export default function Positions() {
                     <div className="mt-3">
                       <button
                         className={supplyFundsButtonStyle}
-                        onClick={async () => {
-                          await transferDeposit(42161, 8453);
+                        onClick={() => {
+                          transferDeposit(42161, 8453);
                         }}
                       >
                         Withdraw
