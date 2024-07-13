@@ -7,7 +7,6 @@ import fetch from "cross-fetch";
 import Head from "next/head";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-// Importing an arrow icon from react-icons library
 import { FaArrowRight } from "react-icons/fa";
 import { useAsyncMemo } from "use-async-memo";
 import { useAccount } from "wagmi";
@@ -20,7 +19,7 @@ const tokenDivStyle =
 
 export const blockscoutBaseUrl = `https://base.blockscout.com/api/v2/`;
 
-interface RawToken {
+export interface RawToken {
   token: {
     address: string;
     decimals: number;
