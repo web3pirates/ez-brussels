@@ -3,7 +3,7 @@ import { baseSepolia, base } from "wagmi/chains";
 import { coinbaseWallet } from "wagmi/connectors";
 
 export const wagmiConfig = createConfig({
-  chains: [baseSepolia, base],
+  chains: [base],
   connectors: [
     coinbaseWallet({ appName: "Create Wagmi", preference: "smartWalletOnly" }),
   ],

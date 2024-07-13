@@ -6,47 +6,60 @@ const sepoliaContract: OmniPointHardhat = {
     eid: EndpointId.SEPOLIA_V2_TESTNET,
     contractName: 'MyOApp',
 }
-
 const arbSepoliaContract: OmniPointHardhat = {
     eid: EndpointId.ARBSEP_V2_TESTNET,
+    contractName: 'MyOApp',
+}
+const arbitrumContract: OmniPointHardhat = {
+    eid: EndpointId.ARBITRUM_V2_MAINNET,
+    contractName: 'MyOApp',
+}
+const baseContract: OmniPointHardhat = {
+    eid: EndpointId.BASE_V2_MAINNET,
     contractName: 'MyOApp',
 }
 
 const config: OAppOmniGraphHardhat = {
     contracts: [
         {
-            contract: arbSepoliaContract,
+            contract: baseContract,
         },
         {
-            contract: sepoliaContract,
+            contract: arbitrumContract,
         },
     ],
     connections: [
         {
-            from: arbSepoliaContract,
-            to: sepoliaContract,
+            from: arbitrumContract,
+            to: baseContract,
             config: {
-                sendLibrary: '0x4f7cd4DA19ABB31b0eC98b9066B9e857B1bf9C0E',
+                sendLibrary: '0x975bcD720be66659e3EB3C0e4F1866a3020E493A',
                 receiveLibraryConfig: {
-                    receiveLibrary: '0x75Db67CDab2824970131D5aa9CECfC9F69c69636',
+                    receiveLibrary: '0x7B9E184e07a6EE1aC23eAe0fe8D6Be2f663f05e6',
                     gracePeriod: BigInt(0),
                 },
                 sendConfig: {
                     executorConfig: {
-                        executor: '0x5Df3a1cEbBD9c8BA7F8dF51Fd632A9aef8308897',
+                        executor: '0x31CAe3B7fB82d847621859fb1585353c5720660D',
                         maxMessageSize: 10000,
                     },
                     ulnConfig: {
-                        confirmations: BigInt(1),
-                        requiredDVNs: ['0x53f488E93b4f1b60E8E83aa374dBe1780A1EE8a8'],
+                        confirmations: BigInt(20),
+                        requiredDVNs: [
+                            '0x2f55C492897526677C5B68fb199ea31E2c126416',
+                            '0xD56e4eAb23cb81f43168F9F45211Eb027b9aC7cc',
+                        ],
                         optionalDVNs: [],
                         optionalDVNThreshold: 0,
                     },
                 },
                 receiveConfig: {
                     ulnConfig: {
-                        confirmations: BigInt(2),
-                        requiredDVNs: ['0x53f488E93b4f1b60E8E83aa374dBe1780A1EE8a8'],
+                        confirmations: BigInt(10),
+                        requiredDVNs: [
+                            '0x2f55C492897526677C5B68fb199ea31E2c126416',
+                            '0xD56e4eAb23cb81f43168F9F45211Eb027b9aC7cc',
+                        ],
                         optionalDVNs: [],
                         optionalDVNThreshold: 0,
                     },
@@ -54,30 +67,36 @@ const config: OAppOmniGraphHardhat = {
             },
         },
         {
-            from: sepoliaContract,
-            to: arbSepoliaContract,
+            from: baseContract,
+            to: arbitrumContract,
             config: {
-                sendLibrary: '0xcc1ae8Cf5D3904Cef3360A9532B477529b177cCE',
+                sendLibrary: '0xB5320B0B3a13cC860893E2Bd79FCd7e13484Dda2',
                 receiveLibraryConfig: {
-                    receiveLibrary: '0xdAf00F5eE2158dD58E0d3857851c432E34A3A851',
+                    receiveLibrary: '0xc70AB6f32772f59fBfc23889Caf4Ba3376C84bAf',
                     gracePeriod: BigInt(0),
                 },
                 sendConfig: {
                     executorConfig: {
-                        executor: '0x718B92b5CB0a5552039B593faF724D182A881eDA',
+                        executor: '0x2CCA08ae69E0C44b18a57Ab2A87644234dAebaE4',
                         maxMessageSize: 10000,
                     },
                     ulnConfig: {
-                        confirmations: BigInt(2),
-                        requiredDVNs: ['0x8eebf8b423B73bFCa51a1Db4B7354AA0bFCA9193'],
+                        confirmations: BigInt(10),
+                        requiredDVNs: [
+                            '0x9e059a54699a285714207b43B055483E78FAac25',
+                            '0xD56e4eAb23cb81f43168F9F45211Eb027b9aC7cc',
+                        ],
                         optionalDVNs: [],
                         optionalDVNThreshold: 0,
                     },
                 },
                 receiveConfig: {
                     ulnConfig: {
-                        confirmations: BigInt(1),
-                        requiredDVNs: ['0x8eebf8b423B73bFCa51a1Db4B7354AA0bFCA9193'],
+                        confirmations: BigInt(20),
+                        requiredDVNs: [
+                            '0x9e059a54699a285714207b43B055483E78FAac25',
+                            '0xD56e4eAb23cb81f43168F9F45211Eb027b9aC7cc',
+                        ],
                         optionalDVNs: [],
                         optionalDVNThreshold: 0,
                     },

@@ -12,10 +12,10 @@ import { useAsyncMemo } from "use-async-memo";
 import { useAccount } from "wagmi";
 
 export const supplyFundsButtonStyle =
-  "inline-block text-gray-900 bg-gradient-to-r from-cyan-200 to-blue-200 border border-black hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 rounded-lg text-sm min-w-20 py-2.5 font-bold text-center no-underline cursor-pointer transition-colors duration-300 ease-in-out whitespace-nowrap";
+  "inline-block text-gray-900 bg-gradient-to-r from-cyan-200 to-blue-200 border border-black hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 rounded-lg text-sm min-w-24 py-2.5 font-bold text-center no-underline cursor-pointer transition-colors duration-300 ease-in-out whitespace-nowrap";
 
 const tokenDivStyle =
-  "flex flex-col md:flex-row justify-between items-start md:items-center w-full p-4 pl-6 md:pl-4 rounded-lg shadow-md border border-gray-200 mb-3";
+  "flex flex-col md:flex-row justify-between items-start md:items-center w-full p-4 pl-6 md:pl-4 rounded-lg shadow-md border border-gray-200 mb-3 h-[5.313rem]";
 
 const blockscoutBaseUrl = `https://base.blockscout.com/api/v2/`;
 
@@ -243,7 +243,8 @@ export default function Home() {
   }, [ethBalance, usdcBalance, usdtBalance, wethBalance]);
 
   const totalUsd = useMemo(() => {
-    return tokens.reduce((acc, token) => acc + token.value, 0);
+    const tot = tokens.reduce((acc, token) => acc + token.value, 0);
+    return tot.toFixed(2);
   }, [tokens]);
 
   const restartPage = () => {
@@ -293,18 +294,20 @@ export default function Home() {
                           </p>
                         </div>
 
-                        <button
-                          onClick={() => {
-                            setShowList(true);
-                            setSelectedToken(index);
-                          }}
-                          type="button"
-                          className={supplyFundsButtonStyle}
-                        >
-                          <div className="flex gap-2 p-1">
-                            Select <FaArrowRight className="button-icon mt-1" />
-                          </div>
-                        </button>
+                        {selectedToken !== index && (
+                          <button
+                            onClick={() => {
+                              setShowList(true);
+                              setSelectedToken(index);
+                            }}
+                            type="button"
+                            className={supplyFundsButtonStyle}
+                          >
+                            <div className="flex gap-2 p-1 items-center justify-center">
+                              Select <FaArrowRight className="button-icon" />
+                            </div>
+                          </button>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -340,8 +343,8 @@ export default function Home() {
                       <span className="font-semibold">
                         manage your assets across different chains seamlessly
                       </span>{" "}
-                      from a single Base wallet without the hassle of switching
-                      chains or bridging funds.
+                      from a single Base Smart Wallet without the hassle of
+                      switching chains or bridging funds.
                     </p>
                     <p className="p-2">
                       <span className="font-semibold">EEZY</span> provides you
