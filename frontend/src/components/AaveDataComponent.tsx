@@ -115,15 +115,19 @@ const SupplyModal: React.FC<{
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setToBeSupplied(e.target.value);
   };
-  const onClick =
-    type === "Supply"
-      ? () =>
-          externalDepositOnAave(
-            8453,
-            42161,
-            BigInt(Number(toBeSupplied) * 10 ** 6)
-          )
-      : () => transferDeposit(42161, 8453);
+
+  const onClick = async () => {
+    if (type === "Supply") {
+      await externalDepositOnAave(
+        8453,
+        42161,
+        BigInt(Number(toBeSupplied) * 10 ** 6)
+      );
+    } else {
+      await transferDeposit(42161, 8453);
+    }
+    setShowModal(false);
+  };
 
   return (
     <div>
