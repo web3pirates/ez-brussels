@@ -63,6 +63,7 @@ export const useContract = () => {
             abi: stargateAbi,
             address: fromData.Stargate,
             functionName: "sendToken",
+            // @ts-ignore
             value: valueToSend,
             args: [sendParam, messFee, address!],
           },
