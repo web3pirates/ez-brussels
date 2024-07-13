@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 interface Reserve {
   id: string;
   symbol: string;
-  chain: number | string | null;
+  chain?: number;
   chainName?: string;
   liquidityRate: string;
   isActive: boolean;
@@ -68,7 +68,23 @@ const useAaveData = (symbol: string) => {
             reserve.chainName = "Fantom";
           }
         });
-        setReserves(filteredReserves);
+
+        filteredReserves.sort(
+          (a: Reserve, b: Reserve) =>
+            parseFloat(b.liquidityRate) - parseFloat(a.liquidityRate)
+        );
+
+        const usedChains: number[] = [];
+
+        const uniqueReserves = filteredReserves.filter((reserve: Reserve) => {
+          if (usedChains.includes(reserve.chain ?? 0)) {
+            return false;
+          }
+          usedChains.push(reserve.chain ?? 0);
+          return true;
+        });
+
+        setReserves(uniqueReserves);
       } catch (error) {
         setError("Error fetching data from Aave API: " + error);
       }

@@ -55,7 +55,7 @@ const AaveDataComponent: React.FC<AaveDataComponentProps> = ({
             </div>
             <div className="flex gap-5 items-start md:items-center">
               <p className="text-sm font-semibold">
-                APY: {(parseFloat(reserve.liquidityRate) * 100).toFixed(2)}%
+                Avg APY: {(parseFloat(reserve.liquidityRate) * 100).toFixed(2)}%
               </p>
               <button
                 onClick={() => {
@@ -149,7 +149,7 @@ const SupplyModal: React.FC<{
           <div className="mb-4">
             <p className="text-gray-700">Transaction overview</p>
             <p className="text-gray-600">
-              Supply APY:{" "}
+              Avg APY:{" "}
               <span className="font-semibold">
                 {(liquidityRate * 100).toFixed(2)}%
               </span>

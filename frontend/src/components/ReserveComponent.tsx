@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 interface Reserve {
   id?: string;
-  chain: number | string | null;
+  chain: number | null;
   chainName?: string;
   symbol?: string;
   liquidityRate?: string;
