@@ -1,3 +1,4 @@
+import { Button } from "../components/atoms";
 import AaveDataComponent from "@/components/AaveDataComponent";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
@@ -264,7 +265,25 @@ export default function Home() {
         <Nav customFunction={restartPage} />
         <CustomContainer as="main">
           <div className="w-full">
-            <OpportunityComponent opportunity={{ chain: "8453" }} />
+            <div className="flex justify-between items-center mt-5">
+              {/* <OpportunityComponent opportunity={{ chain: "8453" }} /> */}
+              <div className="flex gap-2">
+                <Button
+                  onClick={() => {
+                    window.location.href = "/positions";
+                  }}
+                >
+                  Positions
+                </Button>
+                <Button
+                  onClick={() => {
+                    window.location.href = "/transactions";
+                  }}
+                >
+                  Transactions
+                </Button>
+              </div>
+            </div>
 
             <div className="grid grid-cols-12 gap-4">
               <div className="w-full col-span-6">
