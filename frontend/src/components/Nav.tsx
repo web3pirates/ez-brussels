@@ -42,7 +42,7 @@ export const dropdownButtonStyle =
   "block w-full text-gray-900 bg-gradient-to-r from-white via-gray-100 to-gray-200 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 rounded-lg text-sm py-2.5 font-bold text-center no-underline cursor-pointer transition-colors duration-300 ease-in-out";
 
 export const dropdownContainerStyle =
-  "absolute top-16 right-32 mt-2 w-40 md:min-w-64 rounded-lg shadow-lg border border-gray-300 flex flex-col gap-0.5";
+  "absolute top-16 right-28 md:right-36 mt-2 w-44 md:min-w-64 rounded-lg shadow-lg border border-gray-300 flex flex-col gap-0.5";
 
 export function Nav() {
   const { address, isConnected } = useAccount();
@@ -74,7 +74,7 @@ export function Nav() {
   };
 
   const handleViewOnExplorer = () => {
-    window.open(`https://zapper.xyz/it/account/${address}`, "_blank");
+    window.open(`https://zapper.xyz/account/${address}`, "_blank");
   };
 
   const handleClickOutside = (event: MouseEvent) => {
