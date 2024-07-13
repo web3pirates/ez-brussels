@@ -62,6 +62,40 @@ export default function Positions() {
     }
   }, [address, isConnected]);
 
+  const base = useAsyncMemo(async () => {
+    if (!isConnected || !address) return;
+    const url = `${blockscoutBaseUrl}/addresses/${baseContractAddress}/token-balances`;
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) return;
+
+      const data: RawToken[] | undefined = await response.json();
+      if (!data) return;
+
+      const token = data.find((tokenData) => {
+        const tokenAddress = tokenData.token.address.toLowerCase();
+        return tokenAddress === baseAUSDCaddress;
+      });
+
+      if (!token) return;
+
+      const { decimals } = token.token;
+      const amount = parseFloat(
+        (Number(token.value) / 10 ** decimals).toFixed(4)
+      );
+
+      return {
+        symbol: token.token.symbol,
+        chain: "Base",
+        amount,
+        logoUrl: `${logoBaseUrl}USDC.png`,
+      };
+    } catch (error) {
+      console.error("Error fetching positons:", error);
+    }
+  }, [address, isConnected]);
+
   return (
     <>
       <Head>
