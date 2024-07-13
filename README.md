@@ -8,11 +8,11 @@ Welcome to **EEZY**, the ultimate Web3 product designed to simplify your interac
 
 ## Features
 
-- **Seamless Multi-Chain Experience**: Interact with multiple newtorks with a single click.
-- **Base Smart Wallet**: Use a user-friendly wallet to manage assets across different chains.
-- **Magic Spend**: Spend directly from your Coinbase Exchange account without needing to transfer funds.
-- **LayerZero Integration**: Utilize LayerZero for secure cross-chain communication.
-- **Stargate Technology**: Leverage Stargate for reliable and efficient cross-chain swap transactions.
+- ⚡ **Seamless Multi-Chain Experience**: Interact with multiple newtorks with a single click.
+- 💰 **Base Smart Wallet**: Use a user-friendly wallet to manage assets across different chains.
+- 🪄 **Magic Spend**: Spend directly from your Coinbase Exchange account without needing to transfer funds.
+- 🛠️ **LayerZero Integration**: Utilize LayerZero for secure cross-chain communication.
+- 💸 **Stargate Technology**: Leverage Stargate for reliable and efficient cross-chain swap transactions.
 
 ## Getting Started
 
