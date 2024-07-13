@@ -1,18 +1,17 @@
-import AaveDataComponent from "@/components/AaveDataComponent";
-import { Footer } from "@/components/Footer";
-import { Nav } from "@/components/Nav";
-import { OpportunityComponent } from "@/components/OpportunityComponent";
-import { CustomContainer, Layout } from "@/components/atoms";
-import fetch from "cross-fetch";
-import Head from "next/head";
-import { useMemo, useState } from "react";
+import AaveDataComponent from '@/components/AaveDataComponent';
+import { Footer } from '@/components/Footer';
+import { Nav } from '@/components/Nav';
+import { CustomContainer, Layout } from '@/components/atoms';
+import fetch from 'cross-fetch';
+import Head from 'next/head';
+import { useMemo, useState } from 'react';
 // Importing an arrow icon from react-icons library
-import { FaArrowRight } from "react-icons/fa";
-import { useAsyncMemo } from "use-async-memo";
-import { useAccount } from "wagmi";
+import { FaArrowRight } from 'react-icons/fa';
+import { useAsyncMemo } from 'use-async-memo';
+import { useAccount } from 'wagmi';
 
 export const supplyFundsButtonStyle =
-  "inline-block text-gray-900 bg-gradient-to-r from-cyan-200 to-blue-200 border border-black hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 rounded-lg text-sm min-w-20 py-2.5 font-bold text-center no-underline cursor-pointer transition-colors duration-300 ease-in-out whitespace-nowrap";
+  'inline-block text-gray-900 bg-gradient-to-r from-cyan-200 to-blue-200 border border-black hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 rounded-lg text-sm min-w-20 py-2.5 font-bold text-center no-underline cursor-pointer transition-colors duration-300 ease-in-out whitespace-nowrap';
 
 const blockscoutBaseUrl = `https://base.blockscout.com/api/v2/`;
 
@@ -38,8 +37,7 @@ interface Token {
   balance: number;
 }
 
-const USDCContractAddress =
-  "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913".toLowerCase();
+const USDCContractAddress = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'.toLowerCase();
 
 export default function Home() {
   const { isConnected, address } = useAccount();
@@ -58,28 +56,26 @@ export default function Home() {
       try {
         const response = await fetch(url);
         if (!response.ok) {
-          console.error("Blockscout eth api response was not ok");
+          console.error('Blockscout eth api response was not ok');
           return defaultEthBalance;
         }
 
         const data: RawEth | undefined = await response.json();
         if (!data) {
-          console.error("failed fecthing eth balance");
+          console.error('failed fecthing eth balance');
           return defaultEthBalance;
         }
-        const balance = parseFloat(
-          (Number(data.coin_balance) / 10 ** 18).toFixed(4)
-        );
+        const balance = parseFloat((Number(data.coin_balance) / 10 ** 18).toFixed(4));
 
         const result: Token = { exchange_rate: data.exchange_rate, balance };
         return result;
       } catch (error) {
-        console.error("Error fetching eth balances:", error);
+        console.error('Error fetching eth balances:', error);
         return defaultEthBalance;
       }
     },
     [address, isConnected],
-    defaultEthBalance
+    defaultEthBalance,
   );
 
   const defaultUsdcBalance: Token = {
@@ -94,13 +90,13 @@ export default function Home() {
       try {
         const response = await fetch(url);
         if (!response.ok) {
-          console.error("Blockscout tokens api response was not ok");
+          console.error('Blockscout tokens api response was not ok');
           return defaultUsdcBalance;
         }
 
         const data: RawToken[] | undefined = await response.json();
         if (!data) {
-          console.error("failed fecthing eth balance");
+          console.error('failed fecthing eth balance');
           return defaultUsdcBalance;
         }
 
@@ -112,31 +108,29 @@ export default function Home() {
         if (!usdcToken) return defaultUsdcBalance;
 
         const { decimals, exchange_rate } = usdcToken.token;
-        const balance = parseFloat(
-          (Number(usdcToken.value) / 10 ** decimals).toFixed(4)
-        );
+        const balance = parseFloat((Number(usdcToken.value) / 10 ** decimals).toFixed(4));
 
         return {
           exchange_rate,
           balance,
         };
       } catch (error) {
-        console.error("Error fetching eth balances:", error);
+        console.error('Error fetching eth balances:', error);
         return defaultUsdcBalance;
       }
     },
     [address, isConnected],
-    defaultUsdcBalance
+    defaultUsdcBalance,
   );
 
   const tokens = useMemo(() => {
     return [
       {
-        name: "ETH",
+        name: 'ETH',
         amount: ethBalance.balance,
       },
       {
-        name: "USDC",
+        name: 'USDC',
         amount: usdcBalance.balance,
       },
     ];
@@ -165,9 +159,7 @@ export default function Home() {
                       <div
                         key={index}
                         className={`flex flex-col md:flex-row justify-between items-start md:items-center w-full p-4 pl-6 md:pl-4 rounded-lg shadow-md border border-gray-200 mb-3
-                        ${
-                          index === selectedToken ? "bg-yellow-100" : "bg-white"
-                        }
+                        ${index === selectedToken ? 'bg-yellow-100' : 'bg-white'}
                           `}
                       >
                         <p className="text-md font-semibold">
