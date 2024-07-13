@@ -1,5 +1,5 @@
-import { Footer } from '@/components/Footer';
-import { Nav } from '@/components/Nav';
+import { Footer } from "@/components/Footer";
+import { Nav } from "@/components/Nav";
 import {
   CustomContainer,
   Label,
@@ -19,9 +19,9 @@ import {
   TextArea,
   Select,
   Loader,
-} from '@/components/atoms';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+} from "@/components/atoms";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 export default function testAtoms() {
   const router = useRouter();
@@ -30,11 +30,11 @@ export default function testAtoms() {
     <>
       <Head>
         <title>EEZY</title>
-        <meta name="description" content="Revolutionizing cool apps." />
+        <meta name="description" content="EEZY Web3" />
       </Head>
 
       <Layout>
-        <Nav customFunction={() => router.push('/')} />
+        <Nav customFunction={() => router.push("/")} />
 
         <CustomContainer>
           <Title>Atoms</Title>
