@@ -1,18 +1,23 @@
 import { useState } from 'react';
 
-interface Opportunity {
-  chain: string;
-  // Add other properties here
+interface Reserve {
+  id?: string;
+  chain: number | string | null;
+  chainName?: string;
+  symbol?: string;
+  liquidityRate?: string;
+  variableBorrowRate?: string;
+  stableBorrowRate?: string;
 }
 
-export const OpportunityComponent = ({ opportunity }: { opportunity: Opportunity }) => {
+export const ReserveComponent = ({ reserve }: { reserve: Reserve }) => {
   const [imageExists, setImageExists] = useState(true);
 
   return (
     <div>
       {imageExists ? (
         <img
-          src={`/images/${opportunity.chain}.png`}
+          src={`/images/${reserve.chain}.png`}
           alt=""
           width={45}
           height={45}

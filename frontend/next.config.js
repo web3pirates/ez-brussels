@@ -1,4 +1,4 @@
-const { withPlausibleProxy } = require('next-plausible');
+const { withPlausibleProxy } = require("next-plausible");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -24,8 +24,11 @@ module.exports = {
 
     return config;
   },
-  transpilePackages: ['@uniswap/widgets', '@uniswap/conedison'],
+  transpilePackages: ["@uniswap/widgets", "@uniswap/conedison"],
   images: {
-    domains: ['ca.slack-edge.com'],
+    domains: [
+      "ca.slack-edge.com",
+      "erc20-token-logos.s3.eu-west-1.amazonaws.com",
+    ],
   },
 };
