@@ -64,7 +64,7 @@ export default function Transactions() {
           <div className="mt-4">
             {transactions ? (
               <div className="mb-8">
-                <div className="flex flex-col gap-8 px-2 pt-5 pb-2">
+                <div className="flex flex-col gap-8 px-2 pt-5">
                   <p className="text-2xl">
                     <div className="flex gap-2">
                       Transactions
@@ -84,9 +84,29 @@ export default function Transactions() {
                       className="col-span-3"
                       href={`https://base.blockscout.com/tx/${tx.transaction_hash}`}
                     >
-                      {tx.transaction_hash}
+                      <div className="">
+                        <div className="font-semibold">Tx hash</div>
+                        <div className="text-xs">{tx.transaction_hash}</div>
+                      </div>
                     </a>
-                    <div>{new Date(tx.timestamp).toLocaleString()}</div>
+                    <div className="mt-2 text-sm font-semibold">
+                      {/* {new Date(tx.timestamp).toLocaleString()} */}
+                      <div>
+                        <p className={`text-left font-semibold mr-1`}>
+                          {tx.timestamp !== undefined &&
+                            new Date(tx.timestamp).toLocaleDateString()}
+                        </p>
+                        <p
+                          className={`text-left text-gray-600 font-semibold
+                         mr-1`}
+                        >
+                          {tx.timestamp !== undefined &&
+                            new Date(tx.timestamp)
+                              .toLocaleTimeString()
+                              .substring(0, 5)}
+                        </p>
+                      </div>
+                    </div>
                     <button
                       onClick={() => {
                         window.open(
@@ -102,7 +122,7 @@ export default function Transactions() {
                     </button>
                   </RowElement>
                 ))
-              : "Loading..."}
+              : ""}
           </div>
         </div>
       </CustomContainer>
