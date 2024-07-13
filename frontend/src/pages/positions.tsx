@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 import { NavigationMenu } from "@/components/NavigationMenu";
 import { CustomContainer, Layout } from "@/components/atoms";
+import { supplyFundsButtonStyle } from "@/components/supplyFundsButtonStyle";
 import useAaveData from "@/hooks/useAaveData";
 import { chainData } from "@/utils/chainData";
 import fetch from "cross-fetch";
@@ -139,7 +140,7 @@ export default function Positions() {
             <div className="grid grid-cols-2 gap-4 mt-4">
               {arb ? (
                 <>
-                  <div className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center max-h-[8rem]">
+                  <div className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center max-h-[12rem]">
                     <Image
                       src={arb.logoUrl}
                       width={35}
@@ -161,6 +162,11 @@ export default function Positions() {
                       ) : (
                         <></>
                       )}
+                    </div>
+                    <div className="mt-3">
+                      <button className={supplyFundsButtonStyle}>
+                        Withdraw
+                      </button>
                     </div>
                   </div>
                   <div>

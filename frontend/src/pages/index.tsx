@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 import { NavigationMenu } from "@/components/NavigationMenu";
 import { CustomContainer, Layout } from "@/components/atoms";
+import { supplyFundsButtonStyle } from "@/components/supplyFundsButtonStyle";
 import fetch from "cross-fetch";
 import Head from "next/head";
 import Image from "next/image";
@@ -11,9 +12,6 @@ import { useMemo, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { useAsyncMemo } from "use-async-memo";
 import { useAccount } from "wagmi";
-
-export const supplyFundsButtonStyle =
-  "inline-block text-gray-900 bg-gradient-to-r from-cyan-200 to-blue-200 border border-black hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 rounded-lg text-sm min-w-24 py-2.5 font-bold text-center no-underline cursor-pointer transition-colors duration-300 ease-in-out whitespace-nowrap";
 
 const tokenDivStyle =
   "flex flex-col md:flex-row justify-between items-start md:items-center w-full p-4 pl-6 md:pl-4 rounded-lg shadow-md border border-gray-200 mb-3 h-[5.313rem]";
