@@ -14,7 +14,7 @@ import { useAsyncMemo } from "use-async-memo";
 import { useAccount } from "wagmi";
 
 const tokenDivStyle =
-  "flex flex-col md:flex-row justify-between items-start md:items-center w-full p-4 pl-6 md:pl-4 rounded-lg shadow-md border border-gray-200 mb-3 h-[5.313rem]";
+  "flex flex-col sm:flex-row justify-between items-start sm:items-center w-full p-4 pl-6 sm:pl-4 rounded-lg shadow-md border border-gray-200 mb-3 h-auto sm:h-[5.313rem]";
 
 export const blockscoutBaseUrl = `https://base.blockscout.com/api/v2/`;
 
@@ -215,8 +215,8 @@ export default function Home() {
           <div className="w-full">
             <NavigationMenu />
 
-            <div className="grid grid-cols-12 gap-4">
-              <div className="w-full col-span-6">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+              <div className="w-full md:col-span-6">
                 <div className="mb-8">
                   <div className="flex flex-col gap-8 px-2 pt-5 pb-2">
                     <p className="text-2xl">
@@ -248,7 +248,8 @@ export default function Home() {
                             className="rounded-full"
                           />
                           <p className="text-md font-semibold">
-                            {token.amount} {token.name} (${token.value})
+                            {token.amount} {token.name} ($
+                            {token.value.toFixed(2)})
                           </p>
                         </div>
 
@@ -273,7 +274,7 @@ export default function Home() {
               </div>
 
               {showList && (
-                <div className="w-full col-span-6 mt-[3.75rem]">
+                <div className="w-full md:col-span-6 mt-4 md:mt-[3.75rem]">
                   <p className="flex justify-center w-full gap-2 font-extrabold text-2xl md:text-3xl mb-4"></p>
                   <p className="text-lg p-2 font-semibold">
                     Opportunities for {tokens[selectedToken].name}
@@ -287,7 +288,7 @@ export default function Home() {
               )}
 
               {!showList && (
-                <div className="w-full col-span-6 mt-[5.3125rem]">
+                <div className="w-full md:col-span-6 mt-4 md:mt-[5.3125rem]">
                   <p className="flex justify-center w-full gap-2 pt-4 mt-1 font-extrabold text-2xl md:text-3xl mb-4"></p>
 
                   <div

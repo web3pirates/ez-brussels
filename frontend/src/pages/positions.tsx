@@ -78,7 +78,6 @@ export default function Positions() {
     () => reserves.filter((reserve) => reserve.chain !== 42161),
     [reserves]
   );
-  console.log(reserves, otherReserves, arbReserve);
 
   const { transferDeposit } = useContract();
 

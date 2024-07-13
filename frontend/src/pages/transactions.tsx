@@ -29,7 +29,6 @@ export default function Transactions() {
       if (!response.ok) return [];
 
       const data = await response.json();
-      console.log("Fetched transactions:", data);
 
       return data.items.filter(
         (tx: any, index: number, self: any) =>

@@ -7,6 +7,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  ChartOptions,
 } from "chart.js";
 import React from "react";
 import { Line } from "react-chartjs-2";
@@ -20,7 +21,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
 interface HistoricalRate {
   year: number;
   month: number;
@@ -362,18 +362,59 @@ const ReserveHistory: React.FC<{
 
   const curr = currentLiquidityRate > 0.1 ? currentLiquidityRate : 0.1;
 
-  const chartOptions = {
+  const chartOptions: ChartOptions<"line"> = {
     scales: {
       y: {
         beginAtZero: true,
         max: curr * 1.25,
         min: curr / 1.25,
+        ticks: {
+          callback: function (value) {
+            return Number(value).toFixed(1) + "%";
+          },
+        },
+        grid: {
+          color: "rgba(200, 200, 200, 0.2)",
+        },
+      },
+      x: {
+        grid: {
+          display: false,
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: "top",
+        align: "center",
+        labels: {
+          color: "#666",
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            return ` ${context.parsed.y.toFixed(2)}%`;
+          },
+        },
+      },
+    },
+    elements: {
+      point: {
+        radius: 3,
+        backgroundColor: "rgba(0, 123, 255, 0.8)",
+      },
+    },
+    layout: {
+      padding: {
+        top: 10,
       },
     },
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full p-4 bg-white rounded-lg border border-gray-300">
       <p className="text-gray-600">Liquidity Rate History</p>
       <Line data={chartData} options={chartOptions} />
     </div>
