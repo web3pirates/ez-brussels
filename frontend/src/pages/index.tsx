@@ -48,9 +48,6 @@ const USDCContractAddress =
 const USDTContractAddress =
   "0xfde4C96c8593536E31F229EA8f37b2ADa2699bb2".toLowerCase();
 
-const WETHcontractAddress =
-  "0x4200000000000000000000000000000000000006".toLowerCase();
-
 export default function Home() {
   const { isConnected, address } = useAccount();
   const [showList, setShowList] = useState(false);
@@ -85,43 +82,6 @@ export default function Home() {
         return result;
       } catch (error) {
         console.error("Error fetching eth balance:", error);
-        return defaultEthBalance;
-      }
-    },
-    [address, isConnected],
-    defaultEthBalance
-  );
-
-  const wethBalance: Token = useAsyncMemo(
-    async () => {
-      if (!isConnected || !address) return defaultEthBalance;
-      const url = `${blockscoutBaseUrl}/addresses/${address}/token-balances`;
-
-      try {
-        const response = await fetch(url);
-        if (!response.ok) return defaultEthBalance;
-
-        const data: RawToken[] | undefined = await response.json();
-        if (!data) return defaultEthBalance;
-
-        const wethToken = data.find((tokenData) => {
-          const tokenAddress = tokenData.token.address.toLowerCase();
-          return tokenAddress === WETHcontractAddress;
-        });
-
-        if (!wethToken) return defaultEthBalance;
-
-        const { decimals, exchange_rate } = wethToken.token;
-        const balance = parseFloat(
-          (Number(wethToken.value) / 10 ** decimals).toFixed(2)
-        );
-
-        return {
-          exchange_rate,
-          balance,
-        };
-      } catch (error) {
-        console.error("Error fetching usdt balance:", error);
         return defaultEthBalance;
       }
     },
@@ -214,15 +174,6 @@ export default function Home() {
         logoUrl: "https://erc20-token-logos.s3.eu-west-1.amazonaws.com/ETH.png",
       },
       {
-        name: "WETH",
-        amount: wethBalance.balance,
-        value: parseFloat(
-          Number(wethBalance.balance * wethBalance.exchange_rate).toFixed(2)
-        ),
-        logoUrl:
-          "https://erc20-token-logos.s3.eu-west-1.amazonaws.com/WETH.png",
-      },
-      {
         name: "USDC",
         amount: usdcBalance.balance,
         value: parseFloat(
@@ -241,7 +192,7 @@ export default function Home() {
           "https://erc20-token-logos.s3.eu-west-1.amazonaws.com/USDT.png",
       },
     ];
-  }, [ethBalance, usdcBalance, usdtBalance, wethBalance]);
+  }, [ethBalance, usdcBalance, usdtBalance]);
 
   const totalUsd = useMemo(() => {
     const tot = tokens.reduce((acc, token) => acc + token.value, 0);

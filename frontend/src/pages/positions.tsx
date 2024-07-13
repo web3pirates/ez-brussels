@@ -8,6 +8,7 @@ import fetch from "cross-fetch";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useMemo } from "react";
 import { useAsyncMemo } from "use-async-memo";
 import { useAccount } from "wagmi";
 
@@ -96,6 +97,13 @@ export default function Positions() {
     }
   }, [address, isConnected]);
 
+  const positions = useMemo(() => {
+    if (!arb && !base) return [];
+    if (arb && base) return [arb, base];
+    if (arb) return [arb];
+    return [base];
+  }, [arb, base]);
+
   return (
     <>
       <Head>
@@ -114,6 +122,9 @@ export default function Positions() {
               </div>
             </div>
             <div className="grid grid-cols-12 gap-4 mt-4">
+              {/* if positions is defined, map over it and show the list 
+              otherwise show "No positions found"
+              */}
               {arb ? (
                 <div className="col-span-12 md:col-span-6 lg:col-span-4 bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
                   <Image
