@@ -1,5 +1,6 @@
 import useAaveData from "../hooks/useAaveData";
 import { ReserveComponent } from "./ReserveComponent";
+import { useContract } from "@/hooks/useContract";
 import React, { useState } from "react";
 
 // Import the 'Reserve' type from the appropriate module
@@ -107,6 +108,7 @@ const SupplyModal: React.FC<{
   setShowModal: (value: boolean) => void;
 }> = ({ symbol, amount, liquidityRate, setShowModal }) => {
   const [toBeSupplied, setToBeSupplied] = useState<string>("");
+  const { externalDepositOnAave } = useContract();
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setToBeSupplied(e.target.value);
@@ -156,7 +158,16 @@ const SupplyModal: React.FC<{
             >
               Cancel
             </button>
-            <button className={supplyFundsButtonStyle} disabled>
+            <button
+              className={supplyFundsButtonStyle}
+              onClick={() =>
+                externalDepositOnAave(
+                  8453,
+                  42161,
+                  BigInt(Number(toBeSupplied) * 10 ** 6)
+                )
+              }
+            >
               Go!
             </button>
           </div>
