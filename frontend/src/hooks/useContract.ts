@@ -100,7 +100,7 @@ export const useContract = () => {
         fromData.Stargate,
         toData.eid,
         toData.BridgeReceiver,
-        toData.USDC,
+        toData.aUSDC,
         composeMsg,
       ]
     );

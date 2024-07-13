@@ -2,7 +2,6 @@ import { Button } from "../components/atoms";
 import AaveDataComponent from "@/components/AaveDataComponent";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
-import { OpportunityComponent } from "@/components/TestOpportunityComponent";
 import { CustomContainer, Layout } from "@/components/atoms";
 import fetch from "cross-fetch";
 import Head from "next/head";
