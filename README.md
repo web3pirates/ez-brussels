@@ -2,11 +2,12 @@
 
 ## Overview
 
-Welcome to **EEZY**, the ultimate Web3 product designed to simplify your interaction with multiple blockchain networks. EEZY allows you to manage your assets across different chains seamlessly from a single Base Smart Wallet and top-up directly with your Coinbase account with Magic Spend, all without the hassle of switching chains or bridging funds. This is made possible by leveraging the cutting-edge technology of LayerZero and Stargate V2 bridge.
+Welcome to **EEZY**, the ultimate Web3 product designed to simplify your interaction with multiple blockchain networks. 
+
+[EEZY](https://eezy.vercel.app/) allows you to manage your assets across different chains seamlessly from a single Base Smart Wallet and top-up directly with your Coinbase Exchange account with Magic Spend, all without the hassle of switching chains or bridging funds. This is made possible by leveraging the cutting-edge technology of LayerZero and Stargate V2 bridge.
 
 ## Features
 
--   from a single wallet.
 - **Seamless Multi-Chain Experience**: Interact with multiple newtorks with a single click.
 - **Base Smart Wallet**: Use a user-friendly wallet to manage assets across different chains.
 - **Magic Spend**: Spend directly from your Coinbase Exchange account without needing to transfer funds.
