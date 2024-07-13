@@ -26,6 +26,7 @@ const useAaveData = (symbol: string) => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
+
         const filteredReserves = data.reserves.filter(
           (reserve: Reserve) =>
             reserve.symbol === symbol &&
@@ -55,9 +56,6 @@ const useAaveData = (symbol: string) => {
           } else if (reserve.id.startsWith('10')) {
             reserve.chain = 10;
             reserve.chainName = 'Optimism';
-          } else if (reserve.id.startsWith('100')) {
-            reserve.chain = 100;
-            reserve.chainName = 'Gnosis';
           } else if (reserve.id.startsWith('1')) {
             reserve.chain = 1;
             reserve.chainName = 'Ethereum';

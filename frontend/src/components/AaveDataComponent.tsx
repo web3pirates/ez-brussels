@@ -1,6 +1,6 @@
 import useAaveData from '../hooks/useAaveData';
 import { ReserveComponent } from './ReserveComponent';
-import React from 'react';
+import React, { useState } from 'react';
 
 // Import the 'Reserve' type from the appropriate module
 
@@ -27,6 +27,9 @@ const AaveDataComponent: React.FC<AaveDataComponentProps> = ({ symbol, amount })
   if (!reserves) {
     return <div>Loading...</div>;
   }
+
+  const [showSupplyModal, setShowSupplyModal] = useState(false);
+  const [selectedLiquidityRate, setSelectedLiquidityRate] = useState<number>(0);
 
   return (
     <div>
@@ -59,6 +62,8 @@ const AaveDataComponent: React.FC<AaveDataComponentProps> = ({ symbol, amount })
               <button
                 onClick={() => {
                   console.log('Supply funds');
+                  setShowSupplyModal(true);
+                  setSelectedLiquidityRate(parseFloat(reserve.liquidityRate));
                 }}
                 type="button"
                 className={isEnabled ? supplyFundsButtonStyle : noFundsButtonStyle}
@@ -72,6 +77,63 @@ const AaveDataComponent: React.FC<AaveDataComponentProps> = ({ symbol, amount })
             </div>{' '}
           </div>
         ))}
+
+      {showSupplyModal && (
+        <SupplyModal symbol={symbol} amount={amount} liquidityRate={selectedLiquidityRate} />
+      )}
+    </div>
+  );
+};
+
+const SupplyModal: React.FC<{ symbol: string; amount: number; liquidityRate: number }> = ({
+  symbol,
+  amount,
+  liquidityRate,
+}) => {
+  const [toBeSupplied, setToBeSupplied] = useState<string>('');
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setToBeSupplied(e.target.value);
+  };
+
+  return (
+    <div>
+      {/* Overlay */}
+      <div className="fixed inset-0 bg-black bg-opacity-50 z-50"></div>
+
+      {/* Modal */}
+      <div className="fixed inset-0 flex justify-center items-center z-50">
+        <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+          <h2 className="text-xl font-semibold mb-4">Supply {symbol}</h2>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
+              Amount
+            </label>
+            <input
+              type="number"
+              id="toBeSupplied"
+              value={toBeSupplied}
+              onChange={handleAmountChange}
+              className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+            <p className="text-gray-600 mt-1">
+              Wallet balance {amount} {symbol}
+            </p>
+          </div>
+          <div className="mb-4">
+            <p className="text-gray-700">Transaction overview</p>
+            <p className="text-gray-600">
+              Supply APY: <span className="font-semibold">{(liquidityRate * 100).toFixed(2)}%</span>
+            </p>
+            <p className="text-gray-600">
+              Collateralization: <span className="font-semibold">Enabled</span>
+            </p>
+          </div>
+          <button className={supplyFundsButtonStyle} disabled>
+            Go!
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
