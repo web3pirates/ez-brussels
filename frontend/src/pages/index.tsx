@@ -19,7 +19,7 @@ export const supplyFundsButtonStyle =
 const tokenDivStyle =
   "flex flex-col md:flex-row justify-between items-start md:items-center w-full p-4 pl-6 md:pl-4 rounded-lg shadow-md border border-gray-200 mb-3 h-[5.313rem]";
 
-const blockscoutBaseUrl = `https://base.blockscout.com/api/v2/`;
+export const blockscoutBaseUrl = `https://base.blockscout.com/api/v2/`;
 
 interface RawToken {
   token: {
