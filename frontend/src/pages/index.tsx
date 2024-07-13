@@ -264,8 +264,9 @@ export default function Home() {
         <Nav customFunction={restartPage} />
         <CustomContainer as="main">
           <div className="w-full">
+            <OpportunityComponent opportunity={{ chain: "8453" }} />
+
             <div className="grid grid-cols-12 gap-4">
-              <OpportunityComponent opportunity={{ chain: "8453" }} />
               <div className="w-full col-span-6">
                 <div className="mb-8">
                   <div className="flex flex-col gap-8 px-2 pt-5 pb-2">

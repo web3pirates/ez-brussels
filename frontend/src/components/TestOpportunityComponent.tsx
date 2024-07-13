@@ -136,7 +136,7 @@ export const OpportunityComponent = ({
   }
 
   return (
-    <div>
+    <div className="flex gap-2">
       {imageExists ? (
         <img
           src={`/images/${opportunity.chain}.png`}
