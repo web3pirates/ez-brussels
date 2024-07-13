@@ -42,7 +42,7 @@ export const dropdownButtonStyle =
   "block w-full text-gray-900 bg-gradient-to-r from-white via-gray-100 to-gray-200 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 rounded-lg text-sm py-2.5 font-bold text-center no-underline cursor-pointer transition-colors duration-300 ease-in-out";
 
 export const dropdownContainerStyle =
-  "absolute top-16 right-28 md:right-36 mt-2 w-44 md:min-w-64 rounded-lg shadow-lg border border-gray-300 flex flex-col gap-0.5";
+  "absolute md:right-3 top-16 mt-2 w-32 md:min-w-[10.5rem] rounded-lg shadow-lg border border-gray-300 flex flex-col gap-0.5";
 
 type NavProps = {
   customFunction: () => void;
@@ -69,6 +69,7 @@ export const Nav: React.FC<NavProps> = ({ customFunction }) => {
 
   const disconnectWallet = useCallback(() => {
     if (isConnected) disconnect();
+    setDropdownOpen(false);
   }, [disconnect]);
 
   const truncatedAddress = `${address?.slice(0, 5)}...${address?.slice(-5)}`;
@@ -126,7 +127,7 @@ export const Nav: React.FC<NavProps> = ({ customFunction }) => {
       </Menu>
 
       <div className="flex items-center gap-3 ml-auto">
-        {isConnected && (
+        {isConnected ? (
           <>
             <button
               className={`${connectButtonStyle} relative`}
@@ -136,30 +137,28 @@ export const Nav: React.FC<NavProps> = ({ customFunction }) => {
               {ensName ?? truncatedAddress}
             </button>
             {dropdownOpen && (
-              <div className={`${dropdownContainerStyle}`} ref={dropdownRef}>
+              <div className={dropdownContainerStyle} ref={dropdownRef}>
                 <button
                   onClick={handleCopyAddress}
-                  className={`${dropdownButtonStyle}`}
+                  className={dropdownButtonStyle}
                 >
                   Copy Address
                 </button>
                 <button
                   onClick={handleViewOnExplorer}
-                  className={`${dropdownButtonStyle}`}
+                  className={dropdownButtonStyle}
                 >
                   Manage Smart Wallet
+                </button>
+                <button
+                  onClick={disconnectWallet}
+                  className={dropdownButtonStyle}
+                >
+                  Disconnect
                 </button>
               </div>
             )}
           </>
-        )}
-        {isConnected ? (
-          <button
-            onClick={disconnectWallet}
-            className={`${connectButtonStyle}`}
-          >
-            Disconnect
-          </button>
         ) : (
           <button onClick={connectWallet} className={`${connectButtonStyle}`}>
             Connect
