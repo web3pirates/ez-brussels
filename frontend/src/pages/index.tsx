@@ -4,6 +4,9 @@ import { Nav } from '@/components/Nav';
 import { CustomContainer, Layout } from '@/components/atoms';
 import Head from 'next/head';
 import { useState } from 'react';
+import { FaArrowRight } from 'react-icons/fa';
+
+// Importing an arrow icon from react-icons library
 
 export const supplyFundsButtonStyle =
   'inline-block text-gray-900 bg-gradient-to-r from-cyan-200 to-blue-200 border border-black hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 rounded-lg text-sm min-w-20 py-2.5 font-bold text-center no-underline cursor-pointer transition-colors duration-300 ease-in-out whitespace-nowrap';
@@ -38,7 +41,7 @@ export default function Home() {
                         ${index === selectedToken ? 'bg-yellow-100' : 'bg-white'}
                           `}
                       >
-                        <p className="text-md mt-4 font-semibold">
+                        <p className="text-md font-semibold">
                           {token.name} ({token.amount})
                         </p>
 
@@ -50,7 +53,9 @@ export default function Home() {
                           type="button"
                           className={supplyFundsButtonStyle}
                         >
-                          {'Select ->'}
+                          <div className="flex gap-2 p-1">
+                            Select <FaArrowRight className="button-icon mt-1" />
+                          </div>
                         </button>
                       </div>
                     ))}

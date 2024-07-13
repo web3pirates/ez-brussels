@@ -57,7 +57,7 @@ const AaveDataComponent: React.FC<AaveDataComponentProps> = ({ symbol }) => {
                 type="button"
                 className={supplyFundsButtonStyle}
               >
-                Supply
+                <div className="p-1 text-center">Supply</div>
               </button>
             </div>{' '}
           </div>
