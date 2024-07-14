@@ -46,20 +46,6 @@ export default function Transactions() {
       <CustomContainer as="main">
         <div className="w-full">
           <NavigationMenu />
-          {/* {transactions?.map((tx: any) => (
-              <>
-                <a
-                  className="col-span-3"
-                  href={`https://base.blockscout.com/tx/${tx.transaction_hash}`}
-                >
-                  {tx.transaction_hash}
-                </a>
-                <div>{new Date(tx.timestamp).toLocaleString()}</div>
-                <a href={`https://layerzeroscan.com/tx/${tx.transaction_hash}`}>
-                  See on ZeroExplorer
-                </a>
-              </>
-            ))} */}
           <div className="mt-4">
             {transactions ? (
               <div className="mb-8">
@@ -82,14 +68,22 @@ export default function Transactions() {
                     <a
                       className="col-span-3"
                       href={`https://base.blockscout.com/tx/${tx.transaction_hash}`}
+                      target="_blank"
                     >
-                      <div className="">
+                      <div className="flex flex-col gap-1">
                         <div className="font-semibold">Tx hash</div>
-                        <div className="text-xs">{tx.transaction_hash}</div>
+                        <div className="text-xs flex flex-row gap-1 items-center">
+                          {`${tx.transaction_hash.slice(
+                            0,
+                            10
+                          )}...${tx.transaction_hash.slice(-10)}`}{" "}
+                          <div className="text-sm font-semibold">
+                            (View on Blockscout)
+                          </div>
+                        </div>
                       </div>
                     </a>
                     <div className="mt-2 text-sm font-semibold">
-                      {/* {new Date(tx.timestamp).toLocaleString()} */}
                       <div>
                         <p className={`text-left font-semibold mr-1`}>
                           {tx.timestamp !== undefined &&
